@@ -14,7 +14,9 @@ class NewProductViewController: UIViewController {
     
     let postButton : UIButton = {
         let postButton = UIButton()
-        postButton.backgroundColor = .systemBlue
+        postButton.layer.borderWidth = 1
+        postButton.setTitleColor(UIColor.label, for: .normal)
+        postButton.layer.borderColor = UIColor.systemGray.cgColor
         postButton.setTitle("Post Ad", for: .normal)
         postButton.addTarget(self, action: #selector(newPost), for: .touchUpInside)
         postButton.layer.cornerRadius = 10
@@ -25,18 +27,22 @@ class NewProductViewController: UIViewController {
         let titleField = UITextField()
         titleField.placeholder = "Title"
         titleField.textAlignment = .center
-        titleField.backgroundColor = .systemBlue
+        titleField.layer.borderWidth = 1
+        titleField.layer.borderColor = UIColor.systemGray.cgColor
         titleField.layer.cornerRadius = 10
+        titleField.addDoneCancelToolbar()
         return titleField
     }()
-    
     
     let priceField : UITextField = {
         let priceField = UITextField()
         priceField.placeholder = "Price"
         priceField.textAlignment = .center
-        priceField.backgroundColor = .systemBlue
+        priceField.layer.borderWidth = 1
+        priceField.layer.borderColor = UIColor.systemGray.cgColor
         priceField.layer.cornerRadius = 10
+        priceField.keyboardType = .numberPad
+        priceField.addDoneCancelToolbar()
         return priceField
     }()
     
@@ -47,6 +53,16 @@ class NewProductViewController: UIViewController {
         return newImageView
     }()
     
+    let addImgButton : UIButton = {
+        let addImgButton = UIButton()
+        addImgButton.setTitle("Add Image", for: .normal)
+        addImgButton.setTitleColor(UIColor.label, for: .normal)
+        addImgButton.layer.cornerRadius = 10
+        addImgButton.layer.borderWidth = 1
+        addImgButton.layer.borderColor = UIColor.systemGray.cgColor
+        addImgButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        return addImgButton
+    }()
     
     
     override func viewDidLoad() {
@@ -60,7 +76,7 @@ class NewProductViewController: UIViewController {
     func viewConfig(){
         navigationItem.leftBarButtonItem = barButton
         
-        [postButton, titleField, priceField, newImageView].forEach{view.addSubview($0)}
+        [postButton, titleField, priceField, newImageView, addImgButton].forEach{view.addSubview($0)}
     }
     
     
@@ -73,6 +89,8 @@ class NewProductViewController: UIViewController {
         
         newImageView.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 40, bottom: 250, right: 40))
         
+        addImgButton.anchor(top: newImageView.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 120, bottom: 180, right: 120))
+        
         postButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 660, left: 40, bottom: 40, right: 40))
     }
     
@@ -84,4 +102,47 @@ class NewProductViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func addImage(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+}
+
+extension NewProductViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            newImageView.image = image
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension UITextField {
+    func addDoneCancelToolbar(onDone: (target: Any, action: Selector)? = nil, onCancel: (target: Any, action: Selector)? = nil) {
+        let onCancel = onCancel ?? (target: self, action: #selector(cancelButtonTapped))
+        let onDone = onDone ?? (target: self, action: #selector(doneButtonTapped))
+
+        let toolbar: UIToolbar = UIToolbar()
+        toolbar.barStyle = .default
+        toolbar.items = [
+            UIBarButtonItem(title: "Cancel", style: .plain, target: onCancel.target, action: onCancel.action),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(title: "Done", style: .done, target: onDone.target, action: onDone.action)
+        ]
+        toolbar.sizeToFit()
+
+        self.inputAccessoryView = toolbar
+    }
+
+    // Default actions:
+    @objc func doneButtonTapped() { self.resignFirstResponder() }
+    @objc func cancelButtonTapped() { self.resignFirstResponder() }
 }

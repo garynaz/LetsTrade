@@ -19,7 +19,6 @@ class ProductCell: UICollectionViewCell {
         return deleteButton
     }()
     
-    
     private let myImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")

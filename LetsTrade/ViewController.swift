@@ -7,7 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDelegate {
+    
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Product>
+    private lazy var dataSource = makeDataSource()
+
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Product>
+
+
     
     var myCollectionView : UICollectionView?
     let searchController = UISearchController(searchResultsController: nil)
@@ -20,12 +27,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         viewNavConfig()
         
         myCollectionView?.delegate = self
-        myCollectionView?.dataSource = self
         
         myCollectionView?.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.cellId)
+        
+//        applySnapshot(animatingDifferences: false, with: <#[Product]#>)
     }
     
+    func applySnapshot(animatingDifferences: Bool = true, with product: [Product]) {
+      var snapshot = Snapshot()
+      snapshot.appendSections([.main])
+      snapshot.appendItems(product)
+      dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+    }
     
+    func makeDataSource() -> DataSource {
+        let dataSource = DataSource(collectionView: myCollectionView!, cellProvider: {(collectionView, indexPath, Product) -> UICollectionViewCell? in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.cellId, for: indexPath) as? ProductCell
+            cell!.configure(title: "Test", price: 0, image: "ps4")
+            return cell
+        })
+        return dataSource
+    }
     
     
     func viewNavConfig(){
@@ -62,20 +84,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+    enum Section {
+        case main
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
-        cell.configure(title: "Playstation 4", price: 200, image: "ps4")
-        
-        return cell
-    }
-    
-    
-    
 }
 
 
