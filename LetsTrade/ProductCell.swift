@@ -68,14 +68,14 @@ class ProductCell: UICollectionViewCell {
         priceLabel.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 100, left: 0, bottom: 20, right: 0))
     }
     
-    public func configure(title: String, price: Int, image: String){
+    public func configure(title: String, price: Int64, image: Data){
         titleLabel.text = title
         titleLabel.font = titleLabel.font.withSize(15)
         
         priceLabel.text = "$\(price)"
         priceLabel.font = priceLabel.font.withSize(20)
         
-        myImageView.image = UIImage(named: image)
+        myImageView.image = UIImage(data: image)
     }
     
    @objc func deleteItem(){

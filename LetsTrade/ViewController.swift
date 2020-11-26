@@ -9,16 +9,16 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDelegate {
     
+    var productData : [Product]?
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Product>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Product>
     private lazy var dataSource = makeDataSource()
-
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Product>
-
-
     
     var myCollectionView : UICollectionView?
     let searchController = UISearchController(searchResultsController: nil)
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     lazy var barButton =  UIBarButtonItem(title: "Add Item", style: .plain, target: self, action: #selector(addItem))
 
     
@@ -27,10 +27,24 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         viewNavConfig()
         
         myCollectionView?.delegate = self
-        
         myCollectionView?.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.cellId)
         
-//        applySnapshot(animatingDifferences: false, with: <#[Product]#>)
+        fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        fetchData()
+    }
+    
+    
+    func fetchData(){
+        do {
+            productData = try context.fetch(Product.fetchRequest())
+            applySnapshot(animatingDifferences: false, with: productData!)
+        } catch {
+            print("Unable to fetch data: \(error)")
+        }
     }
     
     func applySnapshot(animatingDifferences: Bool = true, with product: [Product]) {
@@ -42,8 +56,8 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     
     func makeDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: myCollectionView!, cellProvider: {(collectionView, indexPath, Product) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.cellId, for: indexPath) as? ProductCell
-            cell!.configure(title: "Test", price: 0, image: "ps4")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
+            cell.configure(title: Product.title!, price: Product.price, image: Product.photo!)
             return cell
         })
         return dataSource
@@ -56,7 +70,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         
         view.addSubview(myCollectionView!)
 
-        
         navigationItem.searchController = searchController
         navigationController?.navigationBar.barStyle = .black
         navigationItem.rightBarButtonItem = barButton
@@ -79,9 +92,10 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     @objc func addItem(){
         let destinationVc = NewProductViewController()
         let itemNavControler = UINavigationController(rootViewController: destinationVc)
-        
+        itemNavControler.modalPresentationStyle = .fullScreen
         self.present(itemNavControler, animated: true, completion: nil)
     }
+    
     
     
     enum Section {

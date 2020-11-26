@@ -10,6 +10,8 @@ import UIKit
 
 class NewProductViewController: UIViewController {
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     lazy var barButton =  UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
     
     let postButton : UIButton = {
@@ -75,7 +77,6 @@ class NewProductViewController: UIViewController {
     
     func viewConfig(){
         navigationItem.leftBarButtonItem = barButton
-        
         [postButton, titleField, priceField, newImageView, addImgButton].forEach{view.addSubview($0)}
     }
     
@@ -99,6 +100,17 @@ class NewProductViewController: UIViewController {
     }
     
     @objc func newPost(){
+        let newProduct = Product(context: context)
+        newProduct.title = titleField.text
+        newProduct.price = Int64(priceField.text!)!
+        newProduct.photo = (newImageView.image)!.pngData()
+
+        do {
+            try self.context.save()
+        } catch {
+            print("Error saving new Product: \(error)")
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -130,7 +142,7 @@ extension UITextField {
         let onCancel = onCancel ?? (target: self, action: #selector(cancelButtonTapped))
         let onDone = onDone ?? (target: self, action: #selector(doneButtonTapped))
 
-        let toolbar: UIToolbar = UIToolbar()
+        let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 60, height: 90))
         toolbar.barStyle = .default
         toolbar.items = [
             UIBarButtonItem(title: "Cancel", style: .plain, target: onCancel.target, action: onCancel.action),
@@ -145,4 +157,14 @@ extension UITextField {
     // Default actions:
     @objc func doneButtonTapped() { self.resignFirstResponder() }
     @objc func cancelButtonTapped() { self.resignFirstResponder() }
+}
+
+extension Double {
+    func removeZerosFromEnd() -> String {
+        let formatter = NumberFormatter()
+        let number = NSNumber(value: self)
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 16 //maximum digits in Double after dot (maximum precision)
+        return String(formatter.string(from: number) ?? "")
+    }
 }
