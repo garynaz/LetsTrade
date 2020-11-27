@@ -12,10 +12,10 @@ class ProductCell: UICollectionViewCell {
     
    static let cellId = "ProductCellId"
     
-   private let deleteButton :UIButton = {
+   public let deleteButton :UIButton = {
         let deleteButton = UIButton()
         deleteButton.setImage(UIImage(systemName: "multiply.square.fill"), for: .normal)
-        deleteButton.addTarget(ViewController.self, action: #selector(deleteItem), for: .touchUpInside)
+        deleteButton.addTarget(nil, action: #selector(ViewController.deleteItem), for: .touchUpInside)
         return deleteButton
     }()
     
@@ -78,9 +78,6 @@ class ProductCell: UICollectionViewCell {
         myImageView.image = UIImage(data: image)
     }
     
-   @objc func deleteItem(){
-        //Code for deleting cell/item.
-    }
     
     override func prepareForReuse() {
         super.prepareForReuse()

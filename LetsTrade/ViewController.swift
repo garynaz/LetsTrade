@@ -26,9 +26,11 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         viewNavConfig()
         
+//        print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
+        
         myCollectionView?.delegate = self
         myCollectionView?.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.cellId)
-        
+                
         fetchData()
     }
     
@@ -58,6 +60,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         let dataSource = DataSource(collectionView: myCollectionView!, cellProvider: {(collectionView, indexPath, Product) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
             cell.configure(title: Product.title!, price: Product.price, image: Product.photo!)
+            cell.deleteButton.layer.setValue(indexPath.row, forKey: "index")
             return cell
         })
         return dataSource
@@ -88,6 +91,22 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         let layout = UICollectionViewCompositionalLayout.init(section: section, configuration: UICollectionViewCompositionalLayoutConfiguration())
         return layout
     }
+    
+    @objc func deleteItem(sender:UIButton){
+         //Code for deleting cell/item.
+        print("Calling deletItem in VC")
+        let indexPath : Int = (sender.layer.value(forKey: "index")) as! Int
+        
+        context.delete(productData![indexPath])
+
+        do{
+            try context.save()
+        } catch {
+            print("Unable to delete Item:\(error)")
+        }
+        
+        fetchData()
+     }
     
     @objc func addItem(){
         let destinationVc = NewProductViewController()
