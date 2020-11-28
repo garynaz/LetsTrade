@@ -39,7 +39,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         fetchData()
     }
     
-    
     func fetchData(){
         do {
             productData = try context.fetch(Product.fetchRequest())
@@ -60,7 +59,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         let dataSource = DataSource(collectionView: myCollectionView!, cellProvider: {(collectionView, indexPath, Product) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
             cell.configure(title: Product.title!, price: Product.price, image: Product.photo!)
-            cell.deleteButton.layer.setValue(indexPath.row, forKey: "index")
+            cell.deleteButton.tag = indexPath.row
             return cell
         })
         return dataSource
@@ -93,13 +92,12 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     }
     
     @objc func deleteItem(sender:UIButton){
-         //Code for deleting cell/item.
-        print("Calling deletItem in VC")
-        let indexPath : Int = (sender.layer.value(forKey: "index")) as! Int
-        
-        context.delete(productData![indexPath])
 
-        do{
+        print(sender.tag)
+        
+        context.delete(productData![sender.tag])
+
+        do {
             try context.save()
         } catch {
             print("Unable to delete Item:\(error)")
@@ -107,6 +105,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         
         fetchData()
      }
+    
     
     @objc func addItem(){
         let destinationVc = NewProductViewController()
@@ -121,9 +120,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         case main
     }
 }
-
-
-
 
 
 

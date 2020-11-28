@@ -16,9 +16,8 @@ class NewProductViewController: UIViewController {
     
     let postButton : UIButton = {
         let postButton = UIButton()
-        postButton.layer.borderWidth = 1
-        postButton.setTitleColor(UIColor.label, for: .normal)
-        postButton.layer.borderColor = UIColor.systemGray.cgColor
+        postButton.setTitleColor(UIColor.white, for: .normal)
+        postButton.backgroundColor = .systemIndigo
         postButton.setTitle("Post Ad", for: .normal)
         postButton.addTarget(self, action: #selector(newPost), for: .touchUpInside)
         postButton.layer.cornerRadius = 10
@@ -29,9 +28,7 @@ class NewProductViewController: UIViewController {
         let titleField = UITextField()
         titleField.placeholder = "Title"
         titleField.textAlignment = .center
-        titleField.layer.borderWidth = 1
-        titleField.layer.borderColor = UIColor.systemGray.cgColor
-        titleField.layer.cornerRadius = 10
+        titleField.backgroundColor = .white
         titleField.addDoneCancelToolbar()
         return titleField
     }()
@@ -40,9 +37,7 @@ class NewProductViewController: UIViewController {
         let priceField = UITextField()
         priceField.placeholder = "Price"
         priceField.textAlignment = .center
-        priceField.layer.borderWidth = 1
-        priceField.layer.borderColor = UIColor.systemGray.cgColor
-        priceField.layer.cornerRadius = 10
+        priceField.backgroundColor = .white
         priceField.keyboardType = .numberPad
         priceField.addDoneCancelToolbar()
         return priceField
@@ -50,7 +45,8 @@ class NewProductViewController: UIViewController {
     
     let newImageView : UIImageView = {
         let newImageView = UIImageView()
-        newImageView.image = UIImage(systemName: "photo")
+        newImageView.image = UIImage(systemName: "camera.circle")
+        newImageView.contentMode = .scaleAspectFit
         newImageView.layer.cornerRadius = 10
         return newImageView
     }()
@@ -58,10 +54,9 @@ class NewProductViewController: UIViewController {
     let addImgButton : UIButton = {
         let addImgButton = UIButton()
         addImgButton.setTitle("Add Image", for: .normal)
-        addImgButton.setTitleColor(UIColor.label, for: .normal)
+        addImgButton.setTitleColor(UIColor.systemGray, for: .normal)
         addImgButton.layer.cornerRadius = 10
-        addImgButton.layer.borderWidth = 1
-        addImgButton.layer.borderColor = UIColor.systemGray.cgColor
+        addImgButton.backgroundColor = .white
         addImgButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         return addImgButton
     }()
@@ -69,7 +64,9 @@ class NewProductViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        priceField.delegate = self
+        titleField.delegate = self
+        view.backgroundColor = .systemGray5
         viewConfig()
         LayoutConfig()
     }
@@ -84,9 +81,9 @@ class NewProductViewController: UIViewController {
     
     func LayoutConfig(){
         
-        titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 40, bottom: 650, right: 40))
+        titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 660, right: 0))
         
-        priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 40, bottom: 550, right: 40))
+        priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 550, right: 0))
         
         newImageView.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 40, bottom: 250, right: 40))
         
@@ -124,6 +121,7 @@ class NewProductViewController: UIViewController {
     
 }
 
+
 extension NewProductViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
@@ -137,34 +135,29 @@ extension NewProductViewController : UIImagePickerControllerDelegate, UINavigati
     }
 }
 
-extension UITextField {
-    func addDoneCancelToolbar(onDone: (target: Any, action: Selector)? = nil, onCancel: (target: Any, action: Selector)? = nil) {
-        let onCancel = onCancel ?? (target: self, action: #selector(cancelButtonTapped))
-        let onDone = onDone ?? (target: self, action: #selector(doneButtonTapped))
 
-        let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 60, height: 90))
-        toolbar.barStyle = .default
-        toolbar.items = [
-            UIBarButtonItem(title: "Cancel", style: .plain, target: onCancel.target, action: onCancel.action),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
-            UIBarButtonItem(title: "Done", style: .done, target: onDone.target, action: onDone.action)
-        ]
-        toolbar.sizeToFit()
-
-        self.inputAccessoryView = toolbar
-    }
-
-    // Default actions:
-    @objc func doneButtonTapped() { self.resignFirstResponder() }
-    @objc func cancelButtonTapped() { self.resignFirstResponder() }
-}
-
-extension Double {
-    func removeZerosFromEnd() -> String {
-        let formatter = NumberFormatter()
-        let number = NSNumber(value: self)
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 16 //maximum digits in Double after dot (maximum precision)
-        return String(formatter.string(from: number) ?? "")
+extension NewProductViewController : UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let text = textField.text else { return true }
+        let newLength = text.count + string.count - range.length
+        
+        if textField == titleField {
+            let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890. "
+            let allowedCharSet = CharacterSet(charactersIn: allowedChars)
+            let typedCharsSet = CharacterSet(charactersIn: string)
+            if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 10 {
+                return true
+            }
+        } else {
+            let allowedChars = "1234567890. "
+            let allowedCharSet = CharacterSet(charactersIn: allowedChars)
+            let typedCharsSet = CharacterSet(charactersIn: string)
+            if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 8 {
+                return true
+            }
+        }
+        
+        return false
     }
 }
