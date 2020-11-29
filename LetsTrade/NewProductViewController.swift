@@ -80,7 +80,6 @@ class NewProductViewController: UIViewController {
     
     
     func LayoutConfig(){
-        
         titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 660, right: 0))
         
         priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 550, right: 0))
@@ -146,14 +145,14 @@ extension NewProductViewController : UITextFieldDelegate {
             let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890. "
             let allowedCharSet = CharacterSet(charactersIn: allowedChars)
             let typedCharsSet = CharacterSet(charactersIn: string)
-            if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 10 {
+            if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 20 {
                 return true
             }
         } else {
             let allowedChars = "1234567890. "
             let allowedCharSet = CharacterSet(charactersIn: allowedChars)
             let typedCharsSet = CharacterSet(charactersIn: string)
-            if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 8 {
+            if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 7 {
                 return true
             }
         }

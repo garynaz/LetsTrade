@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UICollectionViewDelegate {
     
@@ -25,8 +26,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewNavConfig()
-        
-//        print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
         
         myCollectionView?.delegate = self
         myCollectionView?.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.cellId)
@@ -76,6 +75,8 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         navigationController?.navigationBar.barStyle = .black
         navigationItem.rightBarButtonItem = barButton
         searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Enter your search..."
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -92,8 +93,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     }
     
     @objc func deleteItem(sender:UIButton){
-
-        print(sender.tag)
         
         context.delete(productData![sender.tag])
 
@@ -102,7 +101,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         } catch {
             print("Unable to delete Item:\(error)")
         }
-        
         fetchData()
      }
     
@@ -126,5 +124,27 @@ class ViewController: UIViewController, UICollectionViewDelegate {
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
+        do {
+            guard let text = searchController.searchBar.text else { return }
+
+            let request = Product.fetchRequest() as NSFetchRequest<Product>
+            
+            let pred = NSPredicate(format: "title CONTAINS %@", text)
+            request.predicate = pred
+            
+            productData = try context.fetch(request)
+            
+            applySnapshot(animatingDifferences: false, with: productData!)
+        } catch {
+            print("Unable to fetch data: \(error)")
+        }
+        
+        if !searchController.isActive {
+            fetchData()
+        }
     }
+    
+    // 1) Figure out how to manipulate/delete cell after searching for it...
+    // 2) Implement default values or required fields when creating new product.
+    
 }
