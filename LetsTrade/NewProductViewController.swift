@@ -11,13 +11,7 @@ import UIKit
 class NewProductViewController: UIViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     lazy var barButton =  UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
-    
-    var imageView = UIImageView()
-    let image = UIImage(systemName: "exclamationmark.circle")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
-    
-
     
     let postButton : UIButton = {
         let postButton = UIButton()
@@ -88,7 +82,6 @@ class NewProductViewController: UIViewController {
     
     
     func LayoutConfig(){
-
         titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 660, right: 0))
         
         priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 550, right: 0))
@@ -100,12 +93,23 @@ class NewProductViewController: UIViewController {
         postButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 660, left: 40, bottom: 40, right: 40))
     }
     
+    func setPaddingView(strImgname: String,txtField: UITextField){
+        let imageView = UIImageView(image: UIImage(systemName: strImgname)?.withTintColor(.systemRed, renderingMode: .alwaysOriginal))
+        imageView.frame = CGRect(x: 0, y: 5, width: imageView.image!.size.width , height: imageView.image!.size.height)
+        let paddingView: UIView = UIView.init(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+        paddingView.addSubview(imageView)
+        txtField.rightViewMode = .always
+        txtField.rightView = paddingView
+        txtField.rightView?.isHidden = true
+        txtField.setLeftPaddingPoints(50)
+    }
+
+    
     @objc func cancel(){
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func newPost(){
-        
         guard
             let title = titleField.text, !title.isEmpty,
             let price = priceField.text, !price.isEmpty
@@ -126,10 +130,8 @@ class NewProductViewController: UIViewController {
         } catch {
             print("Error saving new Product: \(error)")
         }
-        
         self.dismiss(animated: true, completion: nil)
     }
-    
     
     
     @objc func addImage(){
@@ -140,19 +142,7 @@ class NewProductViewController: UIViewController {
         present(vc, animated: true)
     }
     
-    func setPaddingView(strImgname: String,txtField: UITextField){
-            let imageView = UIImageView(image: UIImage(systemName: strImgname)?.withTintColor(.systemRed, renderingMode: .alwaysOriginal))
-            imageView.frame = CGRect(x: 0, y: 5, width: imageView.image!.size.width , height: imageView.image!.size.height)
-            let paddingView: UIView = UIView.init(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
-            paddingView.addSubview(imageView)
-            txtField.rightViewMode = .always
-            txtField.rightView = paddingView
-            txtField.rightView?.isHidden = true
-        
-        txtField.setLeftPaddingPoints(50)
-        }
-    
-}
+   }
 
 
 extension NewProductViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -200,15 +190,5 @@ extension NewProductViewController : UITextFieldDelegate {
     }
 
 }
-extension UITextField {
-    func setLeftPaddingPoints(_ amount:CGFloat){
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
-        self.leftView = paddingView
-        self.leftViewMode = .always
-    }
-    func setRightPaddingPoints(_ amount:CGFloat) {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
-        self.rightView = paddingView
-        self.rightViewMode = .always
-    }
-}
+
+
