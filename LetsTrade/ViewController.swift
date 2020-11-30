@@ -26,10 +26,11 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewNavConfig()
-        
         myCollectionView?.delegate = self
         myCollectionView?.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.cellId)
                 
+        print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
+        
         fetchData()
     }
     
@@ -124,9 +125,10 @@ class ViewController: UIViewController, UICollectionViewDelegate {
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
+        
         do {
             guard let text = searchController.searchBar.text else { return }
-
+            
             let request = Product.fetchRequest() as NSFetchRequest<Product>
             
             let pred = NSPredicate(format: "title CONTAINS %@", text)
@@ -135,16 +137,16 @@ extension ViewController: UISearchResultsUpdating {
             productData = try context.fetch(request)
             
             applySnapshot(animatingDifferences: false, with: productData!)
+            
         } catch {
             print("Unable to fetch data: \(error)")
         }
         
-        if !searchController.isActive {
+        if !searchController.isActive
+        {
             fetchData()
         }
+        
     }
-    
-    // 1) Figure out how to manipulate/delete cell after searching for it...
-    // 2) Implement default values or required fields when creating new product.
     
 }
