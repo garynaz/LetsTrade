@@ -13,14 +13,15 @@ class NewProductViewController: UIViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     lazy var barButton =  UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
     
-    let postButton : UIButton = {
-        let postButton = UIButton()
-        postButton.setTitleColor(UIColor.white, for: .normal)
-        postButton.backgroundColor = .systemIndigo
-        postButton.setTitle("Post Ad", for: .normal)
-        postButton.addTarget(self, action: #selector(newPost), for: .touchUpInside)
-        postButton.layer.cornerRadius = 10
-        return postButton
+    let additionalInfo : UITextView = {
+        let description = UITextView()
+        description.text = "Description"
+        description.textColor = .lightGray
+        description.textAlignment = .left
+        description.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        description.backgroundColor = .white
+        description.addDoneCancelToolbar()
+        return description
     }()
     
     let titleField : UITextField = {
@@ -60,11 +61,22 @@ class NewProductViewController: UIViewController {
         return addImgButton
     }()
     
+    let postButton : UIButton = {
+        let postButton = UIButton()
+        postButton.setTitleColor(UIColor.white, for: .normal)
+        postButton.backgroundColor = .systemIndigo
+        postButton.setTitle("Post Ad", for: .normal)
+        postButton.addTarget(self, action: #selector(newPost), for: .touchUpInside)
+        postButton.layer.cornerRadius = 10
+        return postButton
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         priceField.delegate = self
         titleField.delegate = self
+        additionalInfo.delegate = self
         
         view.backgroundColor = .systemGray5
         viewConfig()
@@ -76,24 +88,27 @@ class NewProductViewController: UIViewController {
     
     func viewConfig(){
         navigationItem.leftBarButtonItem = barButton
-        [postButton, titleField, priceField, newImageView, addImgButton].forEach{view.addSubview($0)}
+        [postButton, titleField, priceField, newImageView, addImgButton, additionalInfo].forEach{view.addSubview($0)}
     }
     
     
     
     func LayoutConfig(){
+                
         titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 660, right: 0))
         
         priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 550, right: 0))
         
-        newImageView.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 40, bottom: 250, right: 40))
+        additionalInfo.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: newImageView.safeAreaLayoutGuide.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,padding: .init(top: 50, left: 0, bottom: 40, right: 0))
         
-        addImgButton.anchor(top: newImageView.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 120, bottom: 180, right: 120))
+        newImageView.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 200, left: 100, bottom: 220, right: 100))
+        
+        addImgButton.anchor(top: newImageView.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 120, bottom: 140, right: 120))
         
         postButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 660, left: 40, bottom: 40, right: 40))
     }
     
-    func setPaddingView(strImgname: String,txtField: UITextField){
+    func setPaddingView(strImgname: String, txtField: UITextField){
         let imageView = UIImageView(image: UIImage(systemName: strImgname)?.withTintColor(.systemRed, renderingMode: .alwaysOriginal))
         imageView.frame = CGRect(x: 0, y: 5, width: imageView.image!.size.width , height: imageView.image!.size.height)
         let paddingView: UIView = UIView.init(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
@@ -191,4 +206,21 @@ extension NewProductViewController : UITextFieldDelegate {
 
 }
 
+extension NewProductViewController : UITextViewDelegate {
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Description"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
+}
 
