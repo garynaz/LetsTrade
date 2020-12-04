@@ -60,7 +60,7 @@ class NewProductViewController: UIViewController {
         addImgButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
         return addImgButton
     }()
-    
+
     let postButton : UIButton = {
         let postButton = UIButton()
         postButton.setTitleColor(UIColor.white, for: .normal)
@@ -77,23 +77,22 @@ class NewProductViewController: UIViewController {
         priceField.delegate = self
         titleField.delegate = self
         additionalInfo.delegate = self
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         view.backgroundColor = .systemGray5
-        viewConfig()
-        LayoutConfig()
+        navigationItem.leftBarButtonItem = barButton
+        [postButton, titleField, priceField, newImageView, addImgButton, additionalInfo].forEach{view.addSubview($0)}
+        
+        layoutConfig()
         setPaddingView(strImgname: "exclamationmark.circle", txtField: titleField)
         setPaddingView(strImgname: "exclamationmark.circle", txtField: priceField)
     }
     
     
-    func viewConfig(){
-        navigationItem.leftBarButtonItem = barButton
-        [postButton, titleField, priceField, newImageView, addImgButton, additionalInfo].forEach{view.addSubview($0)}
-    }
     
-    
-    
-    func LayoutConfig(){
+    func layoutConfig(){
                 
         titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 660, right: 0))
         
@@ -118,7 +117,7 @@ class NewProductViewController: UIViewController {
         txtField.rightView?.isHidden = true
         txtField.setLeftPaddingPoints(50)
     }
-
+   
     
     @objc func cancel(){
         self.dismiss(animated: true, completion: nil)
@@ -127,7 +126,8 @@ class NewProductViewController: UIViewController {
     @objc func newPost(){
         guard
             let title = titleField.text, !title.isEmpty,
-            let price = priceField.text, !price.isEmpty
+            let price = priceField.text, !price.isEmpty,
+            let itemDescription = additionalInfo.text, !itemDescription.isEmpty
         else
         {
             titleField.rightView?.isHidden = false
@@ -139,7 +139,7 @@ class NewProductViewController: UIViewController {
         newProduct.title = title
         newProduct.price = Int64(price)!
         newProduct.photo = (newImageView.image)!.pngData()
-        
+        newProduct.additionalInfo = itemDescription
         do {
             try self.context.save()
         } catch {
@@ -220,6 +220,19 @@ extension NewProductViewController : UITextViewDelegate {
             textView.text = "Description"
             textView.textColor = UIColor.lightGray
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let mytext = textView.text else { return true }
+        let newLength = mytext.count + text.count - range.length
+        
+        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890. "
+        let allowedCharSet = CharacterSet(charactersIn: allowedChars)
+        let typedCharsSet = CharacterSet(charactersIn: text)
+        if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 250 {
+            return true
+        }
+        return false
     }
     
 }

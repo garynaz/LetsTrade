@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD042A3B2577197200E29D05 /* ProductInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */; };
 		DD281012257305A50090844E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD281011257305A50090844E /* Extensions.swift */; };
 		DD9CA1E625636C4A009A8557 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA1E525636C4A009A8557 /* AppDelegate.swift */; };
 		DD9CA1E825636C4A009A8557 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA1E725636C4A009A8557 /* SceneDelegate.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoViewController.swift; sourceTree = "<group>"; };
 		DD281011257305A50090844E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DD9CA1E225636C4A009A8557 /* LetsTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9CA1E525636C4A009A8557 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				DD9CA1E525636C4A009A8557 /* AppDelegate.swift */,
 				DD9CA1E725636C4A009A8557 /* SceneDelegate.swift */,
 				DD9CA1E925636C4A009A8557 /* ViewController.swift */,
+				DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */,
 				DD9CA21A256983DA009A8557 /* NewProductViewController.swift */,
 				DD9CA2132564B4AA009A8557 /* ProductCell.swift */,
 				DD9CA1F125636C4B009A8557 /* Assets.xcassets */,
@@ -151,6 +154,7 @@
 				DD9CA21B256983DA009A8557 /* NewProductViewController.swift in Sources */,
 				DD9CA1F025636C4A009A8557 /* LetsTrade.xcdatamodeld in Sources */,
 				DD9CA1E825636C4A009A8557 /* SceneDelegate.swift in Sources */,
+				DD042A3B2577197200E29D05 /* ProductInfoViewController.swift in Sources */,
 				DD281012257305A50090844E /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

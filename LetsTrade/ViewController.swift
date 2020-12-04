@@ -28,9 +28,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         viewNavConfig()
         myCollectionView?.delegate = self
         myCollectionView?.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.cellId)
-                
-        print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
-        
         fetchData()
     }
     
@@ -91,6 +88,14 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         
         let layout = UICollectionViewCompositionalLayout.init(section: section, configuration: UICollectionViewCompositionalLayoutConfiguration())
         return layout
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let infoVc = ProductInfoViewController()
+        
+        infoVc.selectedProduct = productData![indexPath.item]
+        
+        navigationController?.pushViewController(infoVc, animated: true)
     }
     
     @objc func deleteItem(sender:UIButton){
