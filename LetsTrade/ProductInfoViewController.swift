@@ -21,6 +21,7 @@ class ProductInfoViewController : UIViewController {
     let productTitle : UILabel = {
         let title = UILabel()
         title.backgroundColor = .white
+        title.textColor = .black
         title.textAlignment = .left
         return title
     }()
@@ -28,6 +29,7 @@ class ProductInfoViewController : UIViewController {
     let productPrice : UILabel = {
        let price = UILabel()
         price.backgroundColor = .white
+        price.textColor = .black
         price.textAlignment = .left
         return price
     }()
@@ -35,6 +37,7 @@ class ProductInfoViewController : UIViewController {
     let productDescription : UITextView = {
         let description = UITextView()
         description.backgroundColor = .white
+        description.textColor = .black
         description.textAlignment = .left
         description.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         return description

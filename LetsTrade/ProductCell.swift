@@ -31,6 +31,7 @@ class ProductCell: UICollectionViewCell {
     private let titleLabel : UILabel = {
         let myLabel = UILabel()
         myLabel.text = "Custom"
+        myLabel.textColor = .black
         myLabel.textAlignment = .center
         myLabel.numberOfLines = 0
         myLabel.clipsToBounds = true
@@ -40,6 +41,7 @@ class ProductCell: UICollectionViewCell {
     private let priceLabel : UILabel = {
         let myLabel = UILabel()
         myLabel.text = "$0"
+        myLabel.textColor = .black
         myLabel.textAlignment = .center
         myLabel.clipsToBounds = true
         return myLabel

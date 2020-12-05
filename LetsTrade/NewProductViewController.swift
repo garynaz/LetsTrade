@@ -26,7 +26,9 @@ class NewProductViewController: UIViewController {
     
     let titleField : UITextField = {
         let titleField = UITextField()
-        titleField.placeholder = "Title"
+//        titleField.placeholder = "Title"
+        titleField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        titleField.textColor = .black
         titleField.textAlignment = .center
         titleField.backgroundColor = .white
         titleField.addDoneCancelToolbar()
@@ -35,7 +37,9 @@ class NewProductViewController: UIViewController {
     
     let priceField : UITextField = {
         let priceField = UITextField()
-        priceField.placeholder = "Price"
+//        priceField.placeholder = "Price"
+        priceField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        priceField.textColor = .black
         priceField.textAlignment = .center
         priceField.backgroundColor = .white
         priceField.keyboardType = .numberPad
