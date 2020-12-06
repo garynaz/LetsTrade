@@ -8,15 +8,13 @@
 import Foundation
 import UIKit
 
-class ProductInfoViewController : UIViewController {
+class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var selectedProduct : Product?
     
-    let productImage : UIImageView = {
-        let image = UIImage()
-        let imageView = UIImageView(image: image)
-        return imageView
-    }()
+    var imageCollection : UICollectionView?
+    var imageArray = [UIImage(systemName: "circle.circle"), UIImage(systemName: "square.circle"), UIImage(systemName: "triangle.circle")]
+    
     
     let productTitle : UILabel = {
         let title = UILabel()
@@ -47,10 +45,18 @@ class ProductInfoViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        productImage.image = UIImage(data: selectedProduct!.photo!)
+        
+        imageCollection = UICollectionView(frame: self.view.frame, collectionViewLayout: ProductInfoViewController.createLayout())
+        imageCollection?.delegate = self
+        imageCollection?.dataSource = self
+        imageCollection?.register(ImagePreviewCell.self, forCellWithReuseIdentifier: ImagePreviewCell.cellId)
+        imageCollection?.backgroundColor = .lightGray
+        imageCollection?.isScrollEnabled = false
+        
         productTitle.text = selectedProduct?.title
         productPrice.text = "$\(String(selectedProduct!.price))"
         productDescription.text = selectedProduct?.additionalInfo
+        
         productTitle.setMargins(margin: 20)
         productPrice.setMargins(margin: 20)
     }
@@ -62,7 +68,7 @@ class ProductInfoViewController : UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         
-        [productImage, productTitle, productPrice, productDescription].forEach{view.addSubview($0)}
+        [productTitle, productPrice, productDescription, imageCollection!].forEach{view.addSubview($0)}
         layoutConfig()
     }
     
@@ -73,12 +79,44 @@ class ProductInfoViewController : UIViewController {
     }
     
     func layoutConfig() {
-        productImage.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 0, left: 0, bottom: view.frame.height/2, right: 0))
-        productTitle.anchor(top: productImage.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 380, right: 0))
+        imageCollection?.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 0, left: 0, bottom: view.frame.height/2, right: 0))
+        productTitle.anchor(top: imageCollection!.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 380, right: 0))
         productPrice.anchor(top: productTitle.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 300, right: 0))
         productDescription.anchor(top: productPrice.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
     }
     
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, environment) -> NSCollectionLayoutSection? in
+            
+            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+//            item.contentInsets.trailing = 10
+            
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .paging
+            
+            return section
+        }
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell =  imageCollection!.dequeueReusableCell(withReuseIdentifier: ImagePreviewCell.cellId, for: indexPath) as! ImagePreviewCell
+        
+//        cell.configure(image: imageArray[indexPath.row]!)
+        cell.configure(image: selectedProduct!.photo!)
+        
+        return cell
+    }
+    
 }
-
 
