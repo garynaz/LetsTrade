@@ -47,6 +47,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD06484D257DAEBF00159A2D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DD9CA21A256983DA009A8557 /* NewProductViewController.swift */,
+				DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */,
+				DD9CA1E925636C4A009A8557 /* ViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		DD06484E257DAEF300159A2D /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DD064847257D62D000159A2D /* ImagePreviewCell.swift */,
+				DD9CA2132564B4AA009A8557 /* ProductCell.swift */,
+			);
+			path = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		DD06484F257DAF4000159A2D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DD9CA1EE25636C4A009A8557 /* LetsTrade.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DD9CA1D925636C4A009A8557 = {
 			isa = PBXGroup;
 			children = (
@@ -67,17 +94,14 @@
 			isa = PBXGroup;
 			children = (
 				DD281011257305A50090844E /* Extensions.swift */,
+				DD06484D257DAEBF00159A2D /* View Controllers */,
+				DD06484E257DAEF300159A2D /* Custom Cells */,
+				DD9CA1F125636C4B009A8557 /* Assets.xcassets */,
+				DD06484F257DAF4000159A2D /* Model */,
 				DD9CA1E525636C4A009A8557 /* AppDelegate.swift */,
 				DD9CA1E725636C4A009A8557 /* SceneDelegate.swift */,
-				DD9CA1E925636C4A009A8557 /* ViewController.swift */,
-				DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */,
-				DD9CA21A256983DA009A8557 /* NewProductViewController.swift */,
-				DD064847257D62D000159A2D /* ImagePreviewCell.swift */,
-				DD9CA2132564B4AA009A8557 /* ProductCell.swift */,
-				DD9CA1F125636C4B009A8557 /* Assets.xcassets */,
 				DD9CA1F325636C4B009A8557 /* LaunchScreen.storyboard */,
 				DD9CA1F625636C4B009A8557 /* Info.plist */,
-				DD9CA1EE25636C4A009A8557 /* LetsTrade.xcdatamodeld */,
 			);
 			path = LetsTrade;
 			sourceTree = "<group>";
