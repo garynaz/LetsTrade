@@ -10,6 +10,7 @@
 		DD042A3B2577197200E29D05 /* ProductInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */; };
 		DD064848257D62D000159A2D /* ImagePreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD064847257D62D000159A2D /* ImagePreviewCell.swift */; };
 		DD281012257305A50090844E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD281011257305A50090844E /* Extensions.swift */; };
+		DD402F36258144D400B2227D /* addImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD402F35258144D400B2227D /* addImageCell.swift */; };
 		DD9CA1E625636C4A009A8557 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA1E525636C4A009A8557 /* AppDelegate.swift */; };
 		DD9CA1E825636C4A009A8557 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA1E725636C4A009A8557 /* SceneDelegate.swift */; };
 		DD9CA1EA25636C4A009A8557 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA1E925636C4A009A8557 /* ViewController.swift */; };
@@ -24,6 +25,7 @@
 		DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoViewController.swift; sourceTree = "<group>"; };
 		DD064847257D62D000159A2D /* ImagePreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewCell.swift; sourceTree = "<group>"; };
 		DD281011257305A50090844E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DD402F35258144D400B2227D /* addImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addImageCell.swift; sourceTree = "<group>"; };
 		DD9CA1E225636C4A009A8557 /* LetsTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9CA1E525636C4A009A8557 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD9CA1E725636C4A009A8557 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,9 +52,9 @@
 		DD06484D257DAEBF00159A2D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DD9CA1E925636C4A009A8557 /* ViewController.swift */,
 				DD9CA21A256983DA009A8557 /* NewProductViewController.swift */,
 				DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */,
-				DD9CA1E925636C4A009A8557 /* ViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				DD064847257D62D000159A2D /* ImagePreviewCell.swift */,
+				DD402F35258144D400B2227D /* addImageCell.swift */,
 				DD9CA2132564B4AA009A8557 /* ProductCell.swift */,
 			);
 			path = "Custom Cells";
@@ -178,6 +181,7 @@
 				DD9CA1EA25636C4A009A8557 /* ViewController.swift in Sources */,
 				DD9CA1E625636C4A009A8557 /* AppDelegate.swift in Sources */,
 				DD9CA2142564B4AA009A8557 /* ProductCell.swift in Sources */,
+				DD402F36258144D400B2227D /* addImageCell.swift in Sources */,
 				DD9CA21B256983DA009A8557 /* NewProductViewController.swift in Sources */,
 				DD9CA1F025636C4A009A8557 /* LetsTrade.xcdatamodeld in Sources */,
 				DD9CA1E825636C4A009A8557 /* SceneDelegate.swift in Sources */,

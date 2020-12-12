@@ -55,7 +55,10 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     func makeDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: myCollectionView!, cellProvider: {(collectionView, indexPath, Product) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
-            cell.configure(title: Product.title!, price: Product.price, image: Product.photo!)
+            
+           let productPhotos = self.imagesFromCoreData(object: Product.photo! as? Data)
+            
+            cell.configure(title: Product.title!, price: Product.price, image: productPhotos![0].pngData()!)
             cell.deleteButton.tag = indexPath.row
             return cell
         })
@@ -94,6 +97,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         let infoVc = ProductInfoViewController()
         
         infoVc.selectedProduct = productData![indexPath.item]
+        infoVc.imageArray = imagesFromCoreData(object: productData![indexPath.item].photo! as? Data)
         
         navigationController?.pushViewController(infoVc, animated: true)
     }
@@ -123,13 +127,40 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     enum Section {
         case main
     }
+    
+    //Produces a Data object from an Array of Images.
+    func coreDataObjectFromImages(images: [UIImage]) -> Data? {
+        let dataArray = NSMutableArray()
+
+        for img in images {
+            if let data = img.pngData() {
+                dataArray.add(data)
+            }
+        }
+        return try? NSKeyedArchiver.archivedData(withRootObject: dataArray, requiringSecureCoding: true)
+    }
+
+    
+    //Produces an Array of Images from a Data object.
+    func imagesFromCoreData(object: Data?) -> [UIImage]? {
+        var retVal = [UIImage]()
+
+        guard let object = object else { return nil }
+        if let dataArray = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: object) {
+            for data in dataArray {
+                if let data = data as? Data, let image = UIImage(data: data) {
+                    retVal.append(image)
+                }
+            }
+        }
+        return retVal
+    }
 }
 
 
 
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        
         
         do {
             guard let text = searchController.searchBar.text else { return }

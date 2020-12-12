@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-class ImagePreviewCell: UICollectionViewCell {
+class imagePreviewCell: UICollectionViewCell {
     
-   static let cellId = "CollectionViewCellId"
+   static let cellId = "ImagePreviewCellId"
     
     private let myImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "house")
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()

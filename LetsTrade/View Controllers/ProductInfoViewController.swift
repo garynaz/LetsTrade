@@ -11,9 +11,9 @@ import UIKit
 class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var selectedProduct : Product?
+    var imageArray : [UIImage]?
     
     var imageCollection : UICollectionView?
-    var imageArray = [UIImage(systemName: "circle.circle"), UIImage(systemName: "square.circle"), UIImage(systemName: "triangle.circle")]
     
     
     let productTitle : UILabel = {
@@ -49,7 +49,7 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
         imageCollection = UICollectionView(frame: self.view.frame, collectionViewLayout: ProductInfoViewController.createLayout())
         imageCollection?.delegate = self
         imageCollection?.dataSource = self
-        imageCollection?.register(ImagePreviewCell.self, forCellWithReuseIdentifier: ImagePreviewCell.cellId)
+        imageCollection?.register(imagePreviewCell.self, forCellWithReuseIdentifier: imagePreviewCell.cellId)
         imageCollection?.backgroundColor = .lightGray
         imageCollection?.isScrollEnabled = false
         
@@ -89,7 +89,6 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
         return UICollectionViewCompositionalLayout { (sectionNumber, environment) -> NSCollectionLayoutSection? in
             
             let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-//            item.contentInsets.trailing = 10
             
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitems: [item])
             
@@ -106,17 +105,46 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return imageArray!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  imageCollection!.dequeueReusableCell(withReuseIdentifier: ImagePreviewCell.cellId, for: indexPath) as! ImagePreviewCell
+        let cell =  imageCollection!.dequeueReusableCell(withReuseIdentifier: imagePreviewCell.cellId, for: indexPath) as! imagePreviewCell
         
-//        cell.configure(image: imageArray[indexPath.row]!)
-        cell.configure(image: selectedProduct!.photo!)
+        cell.configure(image: imageArray![indexPath.row].pngData()!)
         
         return cell
     }
+    
+    
+    //Produces a Data object from an Array of Images.
+    func coreDataObjectFromImages(images: [UIImage]) -> Data? {
+        let dataArray = NSMutableArray()
+
+        for img in images {
+            if let data = img.pngData() {
+                dataArray.add(data)
+            }
+        }
+        return try? NSKeyedArchiver.archivedData(withRootObject: dataArray, requiringSecureCoding: true)
+    }
+
+    
+    //Produces an Array of Images from a Data object.
+    func imagesFromCoreData(object: Data?) -> [UIImage]? {
+        var retVal = [UIImage]()
+
+        guard let object = object else { return nil }
+        if let dataArray = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: object) {
+            for data in dataArray {
+                if let data = data as? Data, let image = UIImage(data: data) {
+                    retVal.append(image)
+                }
+            }
+        }
+        return retVal
+    }
+    
     
 }
 

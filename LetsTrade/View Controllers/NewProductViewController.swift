@@ -8,7 +8,13 @@
 import Foundation
 import UIKit
 
-class NewProductViewController: UIViewController {
+class NewProductViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    var imageCollection : UICollectionView?
+    var imgArray = [UIImage]()
+    var imgConfig = UIImage.SymbolConfiguration(pointSize: 200, weight: .ultraLight, scale: .small)
+        
+    var selectedIndex : Int?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     lazy var barButton =  UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
@@ -45,24 +51,6 @@ class NewProductViewController: UIViewController {
         return priceField
     }()
     
-    let newImageView : UIImageView = {
-        let newImageView = UIImageView()
-        newImageView.image = UIImage(systemName: "camera.circle")
-        newImageView.contentMode = .scaleAspectFit
-        newImageView.layer.cornerRadius = 10
-        return newImageView
-    }()
-    
-    let addImgButton : UIButton = {
-        let addImgButton = UIButton()
-        addImgButton.setTitle("Add Image", for: .normal)
-        addImgButton.setTitleColor(UIColor.systemGray, for: .normal)
-        addImgButton.layer.cornerRadius = 10
-        addImgButton.backgroundColor = .white
-        addImgButton.addTarget(self, action: #selector(addImage), for: .touchUpInside)
-        return addImgButton
-    }()
-
     let postButton : UIButton = {
         let postButton = UIButton()
         postButton.setTitleColor(UIColor.white, for: .normal)
@@ -85,13 +73,22 @@ class NewProductViewController: UIViewController {
         super.viewWillAppear(true)
         view.backgroundColor = .systemGray5
         navigationItem.leftBarButtonItem = barButton
-        [postButton, titleField, priceField, newImageView, addImgButton, additionalInfo].forEach{view.addSubview($0)}
+        
+        [UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!].forEach{imgArray.append($0)}
+        
+        imageCollection = UICollectionView(frame: self.view.frame, collectionViewLayout: NewProductViewController.createLayout())
+        imageCollection?.delegate = self
+        imageCollection?.dataSource = self
+        imageCollection?.register(addImageCell.self, forCellWithReuseIdentifier: addImageCell.cellId)
+        imageCollection?.backgroundColor = .systemGray5
+        imageCollection?.isScrollEnabled = true
+        
+        [postButton, titleField, priceField, additionalInfo, imageCollection!].forEach{view.addSubview($0)}
         
         layoutConfig()
         setPaddingView(strImgname: "exclamationmark.circle", txtField: titleField)
         setPaddingView(strImgname: "exclamationmark.circle", txtField: priceField)
     }
-    
     
     
     func layoutConfig(){
@@ -100,12 +97,10 @@ class NewProductViewController: UIViewController {
         
         priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 550, right: 0))
         
-        additionalInfo.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: newImageView.safeAreaLayoutGuide.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,padding: .init(top: 50, left: 0, bottom: 40, right: 0))
+        additionalInfo.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: imageCollection!.safeAreaLayoutGuide.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,padding: .init(top: 50, left: 0, bottom: 40, right: 0))
         
-        newImageView.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 200, left: 100, bottom: 220, right: 100))
-        
-        addImgButton.anchor(top: newImageView.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 120, bottom: 140, right: 120))
-        
+        imageCollection!.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 220, left: 0, bottom: 140, right: 0))
+                
         postButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 660, left: 40, bottom: 40, right: 40))
     }
     
@@ -136,11 +131,11 @@ class NewProductViewController: UIViewController {
             priceField.rightView?.isHidden = false
             return
         }
-        
+        imgArray.removeAll{$0 == UIImage(systemName: "camera", withConfiguration: imgConfig)!}
         let newProduct = Product(context: context)
         newProduct.title = title
         newProduct.price = Int64(price)!
-        newProduct.photo = (newImageView.image)!.pngData()
+        newProduct.photo = coreDataObjectFromImages(images: imgArray) as NSObject?
         newProduct.additionalInfo = itemDescription
         do {
             try self.context.save()
@@ -151,25 +146,89 @@ class NewProductViewController: UIViewController {
     }
     
     
-    @objc func addImage(){
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, environment) -> NSCollectionLayoutSection? in
+            
+            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+            item.contentInsets.leading = 20
+            
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalHeight(1)), subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            
+            return section
+        }
+    }
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 6
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell =  imageCollection!.dequeueReusableCell(withReuseIdentifier: addImageCell.cellId, for: indexPath) as! addImageCell
+        cell.configure(image: imgArray[indexPath.item].pngData()!)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedIndex = indexPath.row
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary
         vc.delegate = self
         vc.allowsEditing = true
         present(vc, animated: true)
     }
+
     
+    
+    //Produces a Data object from an Array of Images.
+    func coreDataObjectFromImages(images: [UIImage]) -> Data? {
+        let dataArray = NSMutableArray()
+
+        for img in images {
+            if let data = img.pngData() {
+                dataArray.add(data)
+            }
+        }
+        return try? NSKeyedArchiver.archivedData(withRootObject: dataArray, requiringSecureCoding: true)
+    }
+
+    
+    //Produces an Array of Images from a Data object.
+    func imagesFromCoreData(object: Data?) -> [UIImage]? {
+        var retVal = [UIImage]()
+
+        guard let object = object else { return nil }
+        if let dataArray = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: object) {
+            for data in dataArray {
+                if let data = data as? Data, let image = UIImage(data: data) {
+                    retVal.append(image)
+                }
+            }
+        }
+        return retVal
+    }
+    
+        
    }
 
 
 extension NewProductViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
-            newImageView.image = image
+            imgArray[selectedIndex!] = image
+            imageCollection?.reloadData()
+            
             dismiss(animated: true, completion: nil)
         }
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
