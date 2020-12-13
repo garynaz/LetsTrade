@@ -13,7 +13,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     var imageCollection : UICollectionView?
     var imgArray = [UIImage]()
     var imgConfig = UIImage.SymbolConfiguration(pointSize: 200, weight: .ultraLight, scale: .small)
-        
+    
     var selectedIndex : Int?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -92,7 +92,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     func layoutConfig(){
-                
+        
         titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 660, right: 0))
         
         priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 550, right: 0))
@@ -100,7 +100,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         additionalInfo.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: imageCollection!.safeAreaLayoutGuide.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,padding: .init(top: 50, left: 0, bottom: 40, right: 0))
         
         imageCollection!.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 220, left: 0, bottom: 140, right: 0))
-                
+        
         postButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 660, left: 40, bottom: 40, right: 40))
     }
     
@@ -114,7 +114,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         txtField.rightView?.isHidden = true
         txtField.setLeftPaddingPoints(50)
     }
-   
+    
     
     @objc func cancel(){
         self.dismiss(animated: true, completion: nil)
@@ -135,7 +135,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         let newProduct = Product(context: context)
         newProduct.title = title
         newProduct.price = Int64(price)!
-        newProduct.photo = coreDataObjectFromImages(images: imgArray) as NSObject?
+        newProduct.photo = coreDataObjectFromImages(images: imgArray)
         newProduct.additionalInfo = itemDescription
         do {
             try self.context.save()
@@ -184,13 +184,13 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         vc.allowsEditing = true
         present(vc, animated: true)
     }
-
+    
     
     
     //Produces a Data object from an Array of Images.
     func coreDataObjectFromImages(images: [UIImage]) -> Data? {
         let dataArray = NSMutableArray()
-
+        
         for img in images {
             if let data = img.pngData() {
                 dataArray.add(data)
@@ -198,25 +198,8 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         return try? NSKeyedArchiver.archivedData(withRootObject: dataArray, requiringSecureCoding: true)
     }
-
     
-    //Produces an Array of Images from a Data object.
-    func imagesFromCoreData(object: Data?) -> [UIImage]? {
-        var retVal = [UIImage]()
-
-        guard let object = object else { return nil }
-        if let dataArray = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: object) {
-            for data in dataArray {
-                if let data = data as? Data, let image = UIImage(data: data) {
-                    retVal.append(image)
-                }
-            }
-        }
-        return retVal
-    }
-    
-        
-   }
+}
 
 
 extension NewProductViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -228,7 +211,7 @@ extension NewProductViewController : UIImagePickerControllerDelegate, UINavigati
             dismiss(animated: true, completion: nil)
         }
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -264,11 +247,11 @@ extension NewProductViewController : UITextFieldDelegate {
         titleField.rightView?.isHidden = true
         priceField.rightView?.isHidden = true
     }
-
+    
 }
 
 extension NewProductViewController : UITextViewDelegate {
-
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil

@@ -25,7 +25,7 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
     }()
     
     let productPrice : UILabel = {
-       let price = UILabel()
+        let price = UILabel()
         price.backgroundColor = .white
         price.textColor = .black
         price.textAlignment = .left
@@ -120,29 +120,13 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
     //Produces a Data object from an Array of Images.
     func coreDataObjectFromImages(images: [UIImage]) -> Data? {
         let dataArray = NSMutableArray()
-
+        
         for img in images {
             if let data = img.pngData() {
                 dataArray.add(data)
             }
         }
         return try? NSKeyedArchiver.archivedData(withRootObject: dataArray, requiringSecureCoding: true)
-    }
-
-    
-    //Produces an Array of Images from a Data object.
-    func imagesFromCoreData(object: Data?) -> [UIImage]? {
-        var retVal = [UIImage]()
-
-        guard let object = object else { return nil }
-        if let dataArray = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: object) {
-            for data in dataArray {
-                if let data = data as? Data, let image = UIImage(data: data) {
-                    retVal.append(image)
-                }
-            }
-        }
-        return retVal
     }
     
     
