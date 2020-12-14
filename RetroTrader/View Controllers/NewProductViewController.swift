@@ -1,6 +1,6 @@
 //
 //  NewProductViewController.swift
-//  LetsTrade
+//  RetroTrader
 //
 //  Created by Gary Naz on 11/21/20.
 //

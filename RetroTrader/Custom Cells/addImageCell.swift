@@ -1,6 +1,6 @@
 //
 //  addImageCell.swift
-//  LetsTrade
+//  RetroTrader
 //
 //  Created by Gary Naz on 12/9/20.
 //

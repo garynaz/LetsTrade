@@ -26,7 +26,7 @@
 		DD064847257D62D000159A2D /* ImagePreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewCell.swift; sourceTree = "<group>"; };
 		DD281011257305A50090844E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DD402F35258144D400B2227D /* addImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addImageCell.swift; sourceTree = "<group>"; };
-		DD9CA1E225636C4A009A8557 /* LetsTrade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsTrade.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD9CA1E225636C4A009A8557 /* RetroTrader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RetroTrader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9CA1E525636C4A009A8557 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD9CA1E725636C4A009A8557 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DD9CA1E925636C4A009A8557 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		DD9CA1D925636C4A009A8557 = {
 			isa = PBXGroup;
 			children = (
-				DD9CA1E425636C4A009A8557 /* LetsTrade */,
+				DD9CA1E425636C4A009A8557 /* RetroTrader */,
 				DD9CA1E325636C4A009A8557 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,12 +88,12 @@
 		DD9CA1E325636C4A009A8557 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DD9CA1E225636C4A009A8557 /* LetsTrade.app */,
+				DD9CA1E225636C4A009A8557 /* RetroTrader.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DD9CA1E425636C4A009A8557 /* LetsTrade */ = {
+		DD9CA1E425636C4A009A8557 /* RetroTrader */ = {
 			isa = PBXGroup;
 			children = (
 				DD281011257305A50090844E /* Extensions.swift */,
@@ -106,15 +106,15 @@
 				DD9CA1F325636C4B009A8557 /* LaunchScreen.storyboard */,
 				DD9CA1F625636C4B009A8557 /* Info.plist */,
 			);
-			path = LetsTrade;
+			path = RetroTrader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DD9CA1E125636C4A009A8557 /* LetsTrade */ = {
+		DD9CA1E125636C4A009A8557 /* RetroTrader */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DD9CA1F925636C4B009A8557 /* Build configuration list for PBXNativeTarget "LetsTrade" */;
+			buildConfigurationList = DD9CA1F925636C4B009A8557 /* Build configuration list for PBXNativeTarget "RetroTrader" */;
 			buildPhases = (
 				DD9CA1DE25636C4A009A8557 /* Sources */,
 				DD9CA1DF25636C4A009A8557 /* Frameworks */,
@@ -124,9 +124,9 @@
 			);
 			dependencies = (
 			);
-			name = LetsTrade;
+			name = RetroTrader;
 			productName = LetsTrade;
-			productReference = DD9CA1E225636C4A009A8557 /* LetsTrade.app */;
+			productReference = DD9CA1E225636C4A009A8557 /* RetroTrader.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -143,7 +143,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DD9CA1DD25636C4A009A8557 /* Build configuration list for PBXProject "LetsTrade" */;
+			buildConfigurationList = DD9CA1DD25636C4A009A8557 /* Build configuration list for PBXProject "RetroTrader" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -156,7 +156,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DD9CA1E125636C4A009A8557 /* LetsTrade */,
+				DD9CA1E125636C4A009A8557 /* RetroTrader */,
 			);
 		};
 /* End PBXProject section */
@@ -328,12 +328,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7VMSA5VDUW;
-				INFOPLIST_FILE = LetsTrade/Info.plist;
+				INFOPLIST_FILE = RetroTrader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.garynaz.LetsTrade;
+				PRODUCT_BUNDLE_IDENTIFIER = com.garynaz.RetroTrader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -347,12 +347,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7VMSA5VDUW;
-				INFOPLIST_FILE = LetsTrade/Info.plist;
+				INFOPLIST_FILE = RetroTrader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.garynaz.LetsTrade;
+				PRODUCT_BUNDLE_IDENTIFIER = com.garynaz.RetroTrader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -362,7 +362,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DD9CA1DD25636C4A009A8557 /* Build configuration list for PBXProject "LetsTrade" */ = {
+		DD9CA1DD25636C4A009A8557 /* Build configuration list for PBXProject "RetroTrader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD9CA1F725636C4B009A8557 /* Debug */,
@@ -371,7 +371,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DD9CA1F925636C4B009A8557 /* Build configuration list for PBXNativeTarget "LetsTrade" */ = {
+		DD9CA1F925636C4B009A8557 /* Build configuration list for PBXNativeTarget "RetroTrader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD9CA1FA25636C4B009A8557 /* Debug */,

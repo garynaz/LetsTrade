@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  LetsTrade
+//  RetroTrader
 //
 //  Created by Gary Naz on 11/16/20.
 //

@@ -1,6 +1,6 @@
 //
 //  TestCell.swift
-//  LetsTrade
+//  RetroTrader
 //
 //  Created by Gary Naz on 12/6/20.
 //
