@@ -56,7 +56,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         let dataSource = DataSource(collectionView: myCollectionView!, cellProvider: {(collectionView, indexPath, Product) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.cellId, for: indexPath) as! ProductCell
             
-           let productPhotos = self.imagesFromCoreData(object: Product.photo! as? Data)
+            let productPhotos = self.imagesFromCoreData(object: Product.photo!)
             
             cell.configure(title: Product.title!, price: Product.price, image: productPhotos![0].pngData()!)
             cell.deleteButton.tag = indexPath.row
@@ -97,7 +97,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         let infoVc = ProductInfoViewController()
         
         infoVc.selectedProduct = productData![indexPath.item]
-        infoVc.imageArray = imagesFromCoreData(object: productData![indexPath.item].photo! as? Data)
+        infoVc.imageArray = imagesFromCoreData(object: productData![indexPath.item].photo!)
         
         navigationController?.pushViewController(infoVc, animated: true)
     }
