@@ -9,7 +9,7 @@
 * [Requirements](#requirements)
 * [Setup](#setup)
 * [Features](#features)
-* [To Do](#To-do list)
+* [To Do](#To-do-list)
 * [Inspiration](#inspiration)
 * [Contact](#contact)
 
