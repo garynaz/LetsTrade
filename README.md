@@ -1,6 +1,6 @@
 <a href="https://www.garynazdev.com/"><img src = "images/Group@3x.png">
 
-> A marketplace app for buying, selling, and trading retro and vintage video game products.
+> A marketplace for buying, selling, and trading your retro and vintage video game products.
 
 ## Table of contents
 * [General info](#general-info)
