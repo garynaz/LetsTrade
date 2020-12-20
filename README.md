@@ -18,7 +18,7 @@ The purpose of this project is to build an application for video game enthusiast
 and vintage video game products in an open market.
 
 ## Screenshots
-<img src="images/login.png" width=160> <img src="images/workout.png" width=160> <img src="images/exercise.png" width=160> <img src="images/wsr1.png" width=160> <img src="images/wsr3.png" width=160>
+<img src="images/launchScreen.PNG" width=160> <img src="images/mainVC.PNG" width=160> <img src="images/newProduct.PNG" width=160> <img src="images/newProductComplete.PNG" width=160> <img src="images/descriptionVC.PNG" width=160>
 
 ## Technologies
 * Swift 5
