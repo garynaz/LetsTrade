@@ -9,6 +9,7 @@
 * [Requirements](#requirements)
 * [Setup](#setup)
 * [Features](#features)
+* [To Do](#To-do list)
 * [Inspiration](#inspiration)
 * [Contact](#contact)
 
@@ -34,9 +35,11 @@ and vintage video game products in an open market.
 * Post ads for video game products.
 * Add up to 6 images to each ad, and present the ad in a UICollectionView.
 
-To-do list:
-* Integrate RealmSwift to offer a client-side database alternative.
-* Add a library of exercise images for the end-user to add as an option.
+## To-do list
+* Add locations to ad's in order to allow users to search by location.
+* Add Buy, Sell, or Trade, buttons for users to select when posting a new ad.
+* Add Category heading, and search by category (Video Games, Consoles, Other) functionality for the user.
+
 
 ## Inspiration
 As a gamer, I would often take advantage of marketplace apps where I could buy, sell, or trade my video games with other hobbiests, 
