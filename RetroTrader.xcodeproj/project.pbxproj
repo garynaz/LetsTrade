@@ -19,7 +19,18 @@
 		DD9CA1F525636C4B009A8557 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD9CA1F325636C4B009A8557 /* LaunchScreen.storyboard */; };
 		DD9CA2142564B4AA009A8557 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA2132564B4AA009A8557 /* ProductCell.swift */; };
 		DD9CA21B256983DA009A8557 /* NewProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA21A256983DA009A8557 /* NewProductViewController.swift */; };
+		DDAAA1E3258EBB2D00EE84BE /* RetroTraderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAAA1E2258EBB2D00EE84BE /* RetroTraderTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DDAAA1E5258EBB2D00EE84BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD9CA1DA25636C4A009A8557 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD9CA1E125636C4A009A8557;
+			remoteInfo = RetroTrader;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoViewController.swift; sourceTree = "<group>"; };
@@ -36,10 +47,20 @@
 		DD9CA1F625636C4B009A8557 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD9CA2132564B4AA009A8557 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		DD9CA21A256983DA009A8557 /* NewProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductViewController.swift; sourceTree = "<group>"; };
+		DDAAA1E0258EBB2D00EE84BE /* RetroTraderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetroTraderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDAAA1E2258EBB2D00EE84BE /* RetroTraderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroTraderTests.swift; sourceTree = "<group>"; };
+		DDAAA1E4258EBB2D00EE84BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DD9CA1DF25636C4A009A8557 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDAAA1DD258EBB2D00EE84BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -81,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				DD9CA1E425636C4A009A8557 /* RetroTrader */,
+				DDAAA1E1258EBB2D00EE84BE /* RetroTraderTests */,
 				DD9CA1E325636C4A009A8557 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				DD9CA1E225636C4A009A8557 /* RetroTrader.app */,
+				DDAAA1E0258EBB2D00EE84BE /* RetroTraderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +130,15 @@
 				DD9CA1F625636C4B009A8557 /* Info.plist */,
 			);
 			path = RetroTrader;
+			sourceTree = "<group>";
+		};
+		DDAAA1E1258EBB2D00EE84BE /* RetroTraderTests */ = {
+			isa = PBXGroup;
+			children = (
+				DDAAA1E2258EBB2D00EE84BE /* RetroTraderTests.swift */,
+				DDAAA1E4258EBB2D00EE84BE /* Info.plist */,
+			);
+			path = RetroTraderTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,17 +161,39 @@
 			productReference = DD9CA1E225636C4A009A8557 /* RetroTrader.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DDAAA1DF258EBB2D00EE84BE /* RetroTraderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDAAA1E9258EBB2D00EE84BE /* Build configuration list for PBXNativeTarget "RetroTraderTests" */;
+			buildPhases = (
+				DDAAA1DC258EBB2D00EE84BE /* Sources */,
+				DDAAA1DD258EBB2D00EE84BE /* Frameworks */,
+				DDAAA1DE258EBB2D00EE84BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DDAAA1E6258EBB2D00EE84BE /* PBXTargetDependency */,
+			);
+			name = RetroTraderTests;
+			productName = RetroTraderTests;
+			productReference = DDAAA1E0258EBB2D00EE84BE /* RetroTraderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		DD9CA1DA25636C4A009A8557 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					DD9CA1E125636C4A009A8557 = {
 						CreatedOnToolsVersion = 12.0;
+					};
+					DDAAA1DF258EBB2D00EE84BE = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = DD9CA1E125636C4A009A8557;
 					};
 				};
 			};
@@ -157,6 +211,7 @@
 			projectRoot = "";
 			targets = (
 				DD9CA1E125636C4A009A8557 /* RetroTrader */,
+				DDAAA1DF258EBB2D00EE84BE /* RetroTraderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -168,6 +223,13 @@
 			files = (
 				DD9CA1F525636C4B009A8557 /* LaunchScreen.storyboard in Resources */,
 				DD9CA1F225636C4B009A8557 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDAAA1DE258EBB2D00EE84BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,7 +253,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DDAAA1DC258EBB2D00EE84BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDAAA1E3258EBB2D00EE84BE /* RetroTraderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DDAAA1E6258EBB2D00EE84BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD9CA1E125636C4A009A8557 /* RetroTrader */;
+			targetProxy = DDAAA1E5258EBB2D00EE84BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DD9CA1F325636C4B009A8557 /* LaunchScreen.storyboard */ = {
@@ -359,6 +437,48 @@
 			};
 			name = Release;
 		};
+		DDAAA1E7258EBB2D00EE84BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7VMSA5VDUW;
+				INFOPLIST_FILE = RetroTraderTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.garynaz.RetroTraderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RetroTrader.app/RetroTrader";
+			};
+			name = Debug;
+		};
+		DDAAA1E8258EBB2D00EE84BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7VMSA5VDUW;
+				INFOPLIST_FILE = RetroTraderTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.garynaz.RetroTraderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RetroTrader.app/RetroTrader";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -376,6 +496,15 @@
 			buildConfigurations = (
 				DD9CA1FA25636C4B009A8557 /* Debug */,
 				DD9CA1FB25636C4B009A8557 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDAAA1E9258EBB2D00EE84BE /* Build configuration list for PBXNativeTarget "RetroTraderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDAAA1E7258EBB2D00EE84BE /* Debug */,
+				DDAAA1E8258EBB2D00EE84BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

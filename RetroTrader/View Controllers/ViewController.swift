@@ -36,6 +36,10 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         fetchData()
     }
     
+    deinit {
+        print("Release memory from main VC.")
+    }
+    
     func fetchData(){
         do {
             productData = try context.fetch(Product.fetchRequest())

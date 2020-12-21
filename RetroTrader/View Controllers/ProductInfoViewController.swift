@@ -35,6 +35,7 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
     let productDescription : UITextView = {
         let description = UITextView()
         description.backgroundColor = .white
+        description.isEditable = false
         description.textColor = .black
         description.textAlignment = .left
         description.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -70,6 +71,10 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
         
         [productTitle, productPrice, productDescription, imageCollection!].forEach{view.addSubview($0)}
         layoutConfig()
+    }
+    
+    deinit {
+        print("Release memory from Product Info VC.")
     }
     
     override func viewWillDisappear(_ animated: Bool) {

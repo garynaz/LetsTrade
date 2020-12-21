@@ -90,6 +90,10 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         setPaddingView(strImgname: "exclamationmark.circle", txtField: priceField)
     }
     
+    deinit {
+        print("Release memory from New Product VC.")
+    }
+    
     
     func layoutConfig(){
         
@@ -225,14 +229,14 @@ extension NewProductViewController : UITextFieldDelegate {
         let newLength = text.count + string.count - range.length
         
         if textField == titleField {
-            let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890. "
+            let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.:!& "
             let allowedCharSet = CharacterSet(charactersIn: allowedChars)
             let typedCharsSet = CharacterSet(charactersIn: string)
             if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 20 {
                 return true
             }
         } else {
-            let allowedChars = "1234567890. "
+            let allowedChars = "1234567890"
             let allowedCharSet = CharacterSet(charactersIn: allowedChars)
             let typedCharsSet = CharacterSet(charactersIn: string)
             if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 7 {
@@ -270,14 +274,21 @@ extension NewProductViewController : UITextViewDelegate {
         guard let mytext = textView.text else { return true }
         let newLength = mytext.count + text.count - range.length
         
-        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890. "
+        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,:!@-&% "
         let allowedCharSet = CharacterSet(charactersIn: allowedChars)
         let typedCharsSet = CharacterSet(charactersIn: text)
+        
+        if (text == "\n") //Allows for Return key to function as a line break.
+        {
+            textView.text = textView.text + "\n"
+         }
+
         if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 250 {
             return true
         }
         return false
     }
+    
     
 }
 
