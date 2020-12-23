@@ -17,15 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="retroLogo" translatesAutoresizingMaskIntoConstraints="NO" id="sY8-2N-HUM">
-                                <rect key="frame" x="37" y="408" width="340" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="340" id="7wr-3c-35X"/>
-                                    <constraint firstAttribute="height" constant="80" id="Wfi-VC-qsO"/>
-                                </constraints>
+                                <rect key="frame" x="79.5" y="426.5" width="255" height="43"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="BUY . SELL . TRADE                                  VINTAGE &amp; RETRO GAMES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m2r-kN-rhY">
-                                <rect key="frame" x="68" y="496" width="279" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="BUY . SELL . TRADE                                  VINTAGE &amp; RETRO GAMES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m2r-kN-rhY">
+                                <rect key="frame" x="62" y="479.5" width="291" height="102.5"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -34,8 +29,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="sY8-2N-HUM" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="RMe-le-JCM"/>
-                            <constraint firstItem="sY8-2N-HUM" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="oMK-fs-g1q"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m2r-kN-rhY" secondAttribute="trailing" constant="61" id="9Wc-xR-YYU"/>
+                            <constraint firstItem="m2r-kN-rhY" firstAttribute="top" secondItem="sY8-2N-HUM" secondAttribute="bottom" constant="10" id="Faz-rz-aij"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sY8-2N-HUM" secondAttribute="trailing" constant="79.5" id="QtR-o5-wlU"/>
+                            <constraint firstItem="m2r-kN-rhY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="62" id="duU-Oo-7VN"/>
+                            <constraint firstItem="sY8-2N-HUM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="79.5" id="ebW-6G-DdK"/>
+                            <constraint firstItem="sY8-2N-HUM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="382.5" id="eju-u8-hrP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="m2r-kN-rhY" secondAttribute="bottom" constant="280" id="kLv-6g-SBY"/>
                         </constraints>
                     </view>
                 </viewController>
