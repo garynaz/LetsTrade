@@ -62,7 +62,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             
             let productPhotos = self.imagesFromCoreData(object: Product.photo!)
             
-            cell.configure(title: Product.title!, price: Product.price, image: productPhotos![0].pngData()!)
+            cell.configure(title: Product.title!, price: Product.price, image: productPhotos![0].pngData()!, bst: Product.buySellTrade!)
             cell.deleteButton.tag = indexPath.row
             return cell
         })

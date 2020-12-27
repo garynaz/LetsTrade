@@ -9,25 +9,42 @@ import Foundation
 import UIKit
 
 class NewProductViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
+
+    var buttonStackView = UIStackView()
     var imageCollection : UICollectionView?
     var imgArray = [UIImage]()
     var imgConfig = UIImage.SymbolConfiguration(pointSize: 200, weight: .ultraLight, scale: .small)
-    
+
     var selectedIndex : Int?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     lazy var barButton =  UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
     
-    let additionalInfo : UITextView = {
-        let description = UITextView()
-        description.text = "Description"
-        description.textColor = .lightGray
-        description.textAlignment = .left
-        description.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        description.backgroundColor = .white
-        description.addDoneCancelToolbar()
-        return description
+    let sellButton : UIButton = {
+        let sellButton = UIButton()
+        sellButton.setTitle("Selling", for: .normal)
+        sellButton.backgroundColor = .systemIndigo
+        sellButton.setTitleColor(.white, for: .normal)
+        sellButton.addTarget(self, action: #selector(sellButtonPushed), for: .touchUpInside)
+        return sellButton
+    }()
+    
+    let tradeButton : UIButton = {
+        let tradeButton = UIButton()
+        tradeButton.setTitle("Trading", for: .normal)
+        tradeButton.backgroundColor = .systemGray5
+        tradeButton.setTitleColor(.systemIndigo, for: .normal)
+        tradeButton.addTarget(self, action: #selector(tradeButtonPushed), for: .touchUpInside)
+        return tradeButton
+    }()
+    
+    let buyButton : UIButton = {
+        let buyButton = UIButton()
+        buyButton.setTitle("Buying", for: .normal)
+        buyButton.backgroundColor = .systemGray5
+        buyButton.setTitleColor(.systemIndigo, for: .normal)
+        buyButton.addTarget(self, action: #selector(buyButtonPushed), for: .touchUpInside)
+        return buyButton
     }()
     
     let titleField : UITextField = {
@@ -49,6 +66,17 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         priceField.keyboardType = .numberPad
         priceField.addDoneCancelToolbar()
         return priceField
+    }()
+    
+    let additionalInfo : UITextView = {
+        let description = UITextView()
+        description.text = "Description"
+        description.textColor = .lightGray
+        description.textAlignment = .left
+        description.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        description.backgroundColor = .white
+        description.addDoneCancelToolbar()
+        return description
     }()
     
     let postButton : UIButton = {
@@ -85,17 +113,59 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         
         [postButton, titleField, priceField, additionalInfo, imageCollection!].forEach{view.addSubview($0)}
         
+        configureStackView()
+        
         layoutConfig()
         setPaddingView(strImgname: "exclamationmark.circle", txtField: titleField)
         setPaddingView(strImgname: "exclamationmark.circle", txtField: priceField)
+        
     }
     
     deinit {
         print("Release memory from New Product VC.")
     }
     
+    @objc func tradeButtonPushed(sender:UIButton){
+        sellButton.backgroundColor = .systemGray5
+        sellButton.setTitleColor(.systemIndigo, for: .normal)
+        buyButton.backgroundColor = .systemGray5
+        buyButton.setTitleColor(.systemIndigo, for: .normal)
+        sender.backgroundColor = .systemIndigo
+        sender.setTitleColor(.white, for: .normal)
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @objc func sellButtonPushed(sender:UIButton){
+        buyButton.backgroundColor = .systemGray5
+        buyButton.setTitleColor(.systemIndigo, for: .normal)
+        tradeButton.backgroundColor = .systemGray5
+        tradeButton.setTitleColor(.systemIndigo, for: .normal)
+        sender.backgroundColor = .systemIndigo
+        sender.setTitleColor(.white, for: .normal)
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @objc func buyButtonPushed(sender:UIButton){
+        sellButton.backgroundColor = .systemGray5
+        sellButton.setTitleColor(.systemIndigo, for: .normal)
+        tradeButton.backgroundColor = .systemGray5
+        tradeButton.setTitleColor(.systemIndigo, for: .normal)
+        sender.backgroundColor = .systemIndigo
+        sender.setTitleColor(.white, for: .normal)
+        sender.isSelected = !sender.isSelected
+    }
+    
+    func configureStackView(){
+        buttonStackView = UIStackView(arrangedSubviews: [sellButton, tradeButton, buyButton])
+        buttonStackView.axis = .horizontal
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 0
+        view.addSubview(buttonStackView)
+    }
     
     func layoutConfig(){
+        
+        buttonStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: titleField.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor)
         
         titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 660, right: 0))
         
@@ -125,6 +195,15 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     @objc func newPost(){
+        
+        var selectedButtonTitle : String?
+        
+        for i in [buyButton, sellButton, tradeButton]{
+            if i.currentTitleColor == UIColor.white {
+                selectedButtonTitle = i.title(for: .normal)!
+            }
+        }
+        
         guard
             let title = titleField.text, !title.isEmpty,
             let price = priceField.text, !price.isEmpty,
@@ -135,12 +214,14 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
             priceField.rightView?.isHidden = false
             return
         }
+        
         imgArray.removeAll{$0 == UIImage(systemName: "camera", withConfiguration: imgConfig)!}
         let newProduct = Product(context: context)
         newProduct.title = title
         newProduct.price = Int64(price)!
         newProduct.photo = coreDataObjectFromImages(images: imgArray)
         newProduct.additionalInfo = itemDescription
+        newProduct.buySellTrade = selectedButtonTitle
         do {
             try self.context.save()
         } catch {

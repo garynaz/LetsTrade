@@ -32,6 +32,7 @@ class ProductCell: UICollectionViewCell {
         let myLabel = UILabel()
         myLabel.text = "Custom"
         myLabel.textColor = .black
+        myLabel.layer.borderWidth = 0.2
         myLabel.textAlignment = .center
         myLabel.numberOfLines = 0
         myLabel.clipsToBounds = true
@@ -42,7 +43,19 @@ class ProductCell: UICollectionViewCell {
         let myLabel = UILabel()
         myLabel.text = "$0"
         myLabel.textColor = .black
+        myLabel.layer.borderWidth = 0.2
         myLabel.textAlignment = .center
+        myLabel.clipsToBounds = true
+        return myLabel
+    }()
+    
+    private let bstLabel : UILabel = {
+        let myLabel = UILabel()
+        myLabel.text = "Selling"
+        myLabel.textColor = .white
+        myLabel.backgroundColor = .systemYellow
+        myLabel.textAlignment = .center
+        myLabel.layer.cornerRadius = 5
         myLabel.clipsToBounds = true
         return myLabel
     }()
@@ -54,7 +67,7 @@ class ProductCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.systemGray.cgColor
         contentView.layer.cornerRadius = 10
         contentView.backgroundColor = .white
-        [myImageView, titleLabel, priceLabel, deleteButton].forEach{addSubview($0)}
+        [myImageView, titleLabel, priceLabel, deleteButton, bstLabel].forEach{addSubview($0)}
     }
     
     required init?(coder: NSCoder) {
@@ -63,14 +76,14 @@ class ProductCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        bstLabel.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: deleteButton.leadingAnchor, padding: .init(top: 10, left: 10, bottom: 130, right: 0))
         deleteButton.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: titleLabel.topAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 80, bottom: 20, right: 0))
         myImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 120))
         titleLabel.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 60, left: 0, bottom: 90, right: 0))
         priceLabel.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 100, left: 0, bottom: 20, right: 0))
     }
     
-    public func configure(title: String, price: Int64, image: Data){
+    public func configure(title: String, price: Int64, image: Data, bst: String){
         titleLabel.text = title
         titleLabel.font = titleLabel.font.withSize(15)
         
@@ -78,6 +91,8 @@ class ProductCell: UICollectionViewCell {
         priceLabel.font = priceLabel.font.withSize(20)
         
         myImageView.image = UIImage(data: image)
+        
+        bstLabel.text = bst
     }
     
     override func prepareForReuse() {
@@ -85,6 +100,7 @@ class ProductCell: UICollectionViewCell {
         titleLabel.text = nil
         priceLabel.text = nil
         myImageView.image = UIImage(systemName: "photo")
+        bstLabel.text = "Selling"
     }
 }
 
