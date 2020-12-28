@@ -89,7 +89,6 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         return postButton
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         priceField.delegate = self
@@ -111,14 +110,13 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         imageCollection?.backgroundColor = .systemGray5
         imageCollection?.isScrollEnabled = true
         
-        [postButton, titleField, priceField, additionalInfo, imageCollection!].forEach{view.addSubview($0)}
+        [titleField, priceField, additionalInfo, imageCollection!, postButton].forEach{view.addSubview($0)}
         
         configureStackView()
         
         layoutConfig()
         setPaddingView(strImgname: "exclamationmark.circle", txtField: titleField)
         setPaddingView(strImgname: "exclamationmark.circle", txtField: priceField)
-        
     }
     
     deinit {
@@ -164,18 +162,18 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func layoutConfig(){
+        buttonStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 50))
         
-        buttonStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: titleField.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor)
-        
-        titleField.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 660, right: 0))
-        
-        priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 550, right: 0))
-        
-        additionalInfo.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: imageCollection!.safeAreaLayoutGuide.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor,padding: .init(top: 50, left: 0, bottom: 40, right: 0))
-        
-        imageCollection!.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 220, left: 0, bottom: 140, right: 0))
-        
-        postButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 660, left: 40, bottom: 40, right: 40))
+        titleField.anchor(top: buttonStackView.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 50))
+
+        priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 50))
+
+        additionalInfo.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 150))
+
+        imageCollection!.anchor(top: additionalInfo.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 200))
+
+        postButton.anchor(top: imageCollection?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 50, left: 0, bottom: 0, right: 0) ,size: .init(width: 300 , height: 70))
+        postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     func setPaddingView(strImgname: String, txtField: UITextField){
@@ -292,7 +290,6 @@ extension NewProductViewController : UIImagePickerControllerDelegate, UINavigati
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
             imgArray[selectedIndex!] = image
             imageCollection?.reloadData()
-            
             dismiss(animated: true, completion: nil)
         }
     }
@@ -324,7 +321,6 @@ extension NewProductViewController : UITextFieldDelegate {
                 return true
             }
         }
-        
         return false
     }
     

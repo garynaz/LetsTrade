@@ -72,7 +72,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     
     func viewNavConfig(){
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: ViewController.createLayout())
-        myCollectionView?.backgroundColor = .black
+        myCollectionView?.backgroundColor = . black
         
         view.addSubview(myCollectionView!)
 

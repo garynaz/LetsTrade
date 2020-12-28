@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -11,37 +11,45 @@
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="retroLogo" translatesAutoresizingMaskIntoConstraints="NO" id="sY8-2N-HUM">
-                                <rect key="frame" x="79.5" y="426.5" width="255" height="43"/>
+                                <rect key="frame" x="86.666666666666686" y="441.66666666666669" width="255" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="E1k-5P-XSV"/>
+                                    <constraint firstAttribute="width" constant="255" id="jtX-JM-MFE"/>
+                                    <constraint firstAttribute="width" secondItem="sY8-2N-HUM" secondAttribute="height" multiplier="255:43" id="rQt-0q-4nD"/>
+                                </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="BUY . SELL . TRADE                                  VINTAGE &amp; RETRO GAMES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m2r-kN-rhY">
-                                <rect key="frame" x="62" y="479.5" width="291" height="102.5"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="BUY . TRADE . SELL VINTAGE &amp; RETRO GAMES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LZ5-4h-9V4">
+                                <rect key="frame" x="118.66666666666669" y="491.66666666666674" width="191" height="54"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="191" id="Jmy-Tw-RCj"/>
+                                    <constraint firstAttribute="height" constant="54" id="bbR-er-Cb6"/>
+                                    <constraint firstAttribute="width" secondItem="LZ5-4h-9V4" secondAttribute="height" multiplier="191:54" id="jUO-Qe-2xD"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m2r-kN-rhY" secondAttribute="trailing" constant="61" id="9Wc-xR-YYU"/>
-                            <constraint firstItem="m2r-kN-rhY" firstAttribute="top" secondItem="sY8-2N-HUM" secondAttribute="bottom" constant="10" id="Faz-rz-aij"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sY8-2N-HUM" secondAttribute="trailing" constant="79.5" id="QtR-o5-wlU"/>
-                            <constraint firstItem="m2r-kN-rhY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="62" id="duU-Oo-7VN"/>
-                            <constraint firstItem="sY8-2N-HUM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="79.5" id="ebW-6G-DdK"/>
-                            <constraint firstItem="sY8-2N-HUM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="382.5" id="eju-u8-hrP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="m2r-kN-rhY" secondAttribute="bottom" constant="280" id="kLv-6g-SBY"/>
+                            <constraint firstItem="sY8-2N-HUM" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="2Uw-Ds-8FM"/>
+                            <constraint firstItem="sY8-2N-HUM" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8Mo-eU-wSf"/>
+                            <constraint firstItem="LZ5-4h-9V4" firstAttribute="top" secondItem="sY8-2N-HUM" secondAttribute="bottom" constant="7.3300000000000001" id="Z6q-DJ-Ojp"/>
+                            <constraint firstItem="LZ5-4h-9V4" firstAttribute="centerX" secondItem="sY8-2N-HUM" secondAttribute="centerX" id="tZq-Cg-R7I"/>
                         </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1066.6666666666667" y="316.07142857142856"/>
+            <point key="canvasLocation" x="775.36231884057975" y="315.40178571428572"/>
         </scene>
     </scenes>
     <resources>

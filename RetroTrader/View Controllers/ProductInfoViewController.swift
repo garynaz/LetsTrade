@@ -69,7 +69,7 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         
-        [productTitle, productPrice, productDescription, imageCollection!].forEach{view.addSubview($0)}
+        [imageCollection!, productTitle, productPrice, productDescription].forEach{view.addSubview($0)}
         layoutConfig()
     }
     
@@ -84,10 +84,10 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
     }
     
     func layoutConfig() {
-        imageCollection?.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 0, left: 0, bottom: view.frame.height/2, right: 0))
-        productTitle.anchor(top: imageCollection!.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 380, right: 0))
-        productPrice.anchor(top: productTitle.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 300, right: 0))
-        productDescription.anchor(top: productPrice.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+        imageCollection?.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: view.frame.height/2.5))
+        productTitle.anchor(top: imageCollection!.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 70))
+        productPrice.anchor(top: productTitle.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor,padding: .init(top: 10, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 70))
+        productDescription.anchor(top: productPrice.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
     }
     
     static func createLayout() -> UICollectionViewCompositionalLayout {

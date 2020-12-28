@@ -14,18 +14,17 @@ class addImageCell : UICollectionViewCell {
      
     private let addImageView : UIImageView = {
         let imgView = UIImageView()
-        imgView.layer.cornerRadius = 5
         imgView.image = UIImage()
         imgView.contentMode = .scaleAspectFill
-        imgView.backgroundColor = .systemGray
+        imgView.layer.cornerRadius = 5
         imgView.clipsToBounds = true
         return imgView
     }()
      
+    
      override init(frame: CGRect) {
-         super.init(frame: frame)
-
-         [addImageView].forEach{addSubview($0)}
+        super.init(frame: frame)
+        self.contentView.addSubview(addImageView)
      }
      
      required init?(coder: NSCoder) {
@@ -34,8 +33,10 @@ class addImageCell : UICollectionViewCell {
      
      override func layoutSubviews() {
          super.layoutSubviews()
-         
-         addImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+        contentView.backgroundColor = .systemGray
+        contentView.contentMode = .scaleAspectFill
+        contentView.layer.cornerRadius = 5
+        addImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor)
      }
      
     public func configure(image: Data){
