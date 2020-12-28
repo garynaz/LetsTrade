@@ -32,7 +32,6 @@ class ProductCell: UICollectionViewCell {
         let myLabel = UILabel()
         myLabel.text = "Custom"
         myLabel.textColor = .black
-        myLabel.layer.borderWidth = 0.2
         myLabel.textAlignment = .center
         myLabel.numberOfLines = 0
         myLabel.clipsToBounds = true
@@ -43,7 +42,6 @@ class ProductCell: UICollectionViewCell {
         let myLabel = UILabel()
         myLabel.text = "$0"
         myLabel.textColor = .black
-        myLabel.layer.borderWidth = 0.2
         myLabel.textAlignment = .center
         myLabel.clipsToBounds = true
         return myLabel
@@ -63,8 +61,6 @@ class ProductCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.systemGray.cgColor
         contentView.layer.cornerRadius = 10
         contentView.backgroundColor = .white
         [myImageView, titleLabel, priceLabel, deleteButton, bstLabel].forEach{addSubview($0)}
