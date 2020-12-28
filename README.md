@@ -37,7 +37,6 @@ buy, sell, and trade their retro and vintage video game products in an open mark
 
 ## To-do list
 * Add locations to ad's in order to allow users to search by location.
-* Add Buy, Sell, or Trade, buttons for users to select when posting a new ad.
 * Add Category heading, and Search By Category (Video Games, Consoles, Other) functionality for the end user.
 
 
