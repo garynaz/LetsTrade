@@ -88,6 +88,13 @@ class ProductCell: UICollectionViewCell {
         
         myImageView.image = UIImage(data: image)
         
+        if bst == "Trading"{
+            bstLabel.backgroundColor = .systemRed
+        } else if bst == "Buying" {
+            bstLabel.backgroundColor = .systemGreen
+        } else {
+            bstLabel.backgroundColor = .systemYellow
+        }
         bstLabel.text = bst
     }
     

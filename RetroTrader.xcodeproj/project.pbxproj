@@ -70,24 +70,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DD06484D257DAEBF00159A2D /* View Controllers */ = {
+		DD06484D257DAEBF00159A2D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				DD9CA1E925636C4A009A8557 /* ViewController.swift */,
 				DD9CA21A256983DA009A8557 /* NewProductViewController.swift */,
 				DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */,
 			);
-			path = "View Controllers";
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		DD06484E257DAEF300159A2D /* Custom Cells */ = {
+		DD06484E257DAEF300159A2D /* View */ = {
 			isa = PBXGroup;
 			children = (
 				DD064847257D62D000159A2D /* ImagePreviewCell.swift */,
 				DD402F35258144D400B2227D /* addImageCell.swift */,
 				DD9CA2132564B4AA009A8557 /* ProductCell.swift */,
 			);
-			path = "Custom Cells";
+			path = View;
 			sourceTree = "<group>";
 		};
 		DD06484F257DAF4000159A2D /* Model */ = {
@@ -120,10 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				DD281011257305A50090844E /* Extensions.swift */,
-				DD06484D257DAEBF00159A2D /* View Controllers */,
-				DD06484E257DAEF300159A2D /* Custom Cells */,
-				DD9CA1F125636C4B009A8557 /* Assets.xcassets */,
 				DD06484F257DAF4000159A2D /* Model */,
+				DD06484E257DAEF300159A2D /* View */,
+				DD06484D257DAEBF00159A2D /* Controller */,
+				DD9CA1F125636C4B009A8557 /* Assets.xcassets */,
 				DD9CA1E525636C4A009A8557 /* AppDelegate.swift */,
 				DD9CA1E725636C4A009A8557 /* SceneDelegate.swift */,
 				DD9CA1F325636C4B009A8557 /* LaunchScreen.storyboard */,
