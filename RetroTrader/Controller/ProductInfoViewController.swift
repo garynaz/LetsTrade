@@ -15,6 +15,14 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
     
     var imageCollection : UICollectionView?
     
+    let locationLink : UIButton = {
+        let location = UIButton()
+        location.backgroundColor = .white
+        location.setTitleColor(.systemBlue, for: .normal)
+        location.setTitle(" Richmond Hill, ON L4J9K3", for: .normal)
+        location.setImage(UIImage(systemName: "map"), for: .normal)
+        return location
+    }()
     
     let productTitle : UILabel = {
         let title = UILabel()
@@ -69,7 +77,7 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         
-        [imageCollection!, productTitle, productPrice, productDescription].forEach{view.addSubview($0)}
+        [locationLink, imageCollection!, productTitle, productPrice, productDescription].forEach{view.addSubview($0)}
         layoutConfig()
     }
     
@@ -85,7 +93,8 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
     
     func layoutConfig() {
         imageCollection?.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: view.frame.height/2.5))
-        productTitle.anchor(top: imageCollection!.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 70))
+        locationLink.anchor(top: imageCollection!.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 50))
+        productTitle.anchor(top: locationLink.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 50))
         productPrice.anchor(top: productTitle.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor,padding: .init(top: 10, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 70))
         productDescription.anchor(top: productPrice.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
     }

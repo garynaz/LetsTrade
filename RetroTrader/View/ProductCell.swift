@@ -72,11 +72,12 @@ class ProductCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        bstLabel.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: deleteButton.leadingAnchor, padding: .init(top: 10, left: 10, bottom: 130, right: 0))
-        deleteButton.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: titleLabel.topAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 80, bottom: 20, right: 0))
-        myImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 120))
-        titleLabel.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 60, left: 0, bottom: 90, right: 0))
-        priceLabel.anchor(top: contentView.topAnchor, leading: myImageView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 100, left: 0, bottom: 20, right: 0))
+
+        myImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: nil, size: .init(width: contentView.frame.width/1.7, height: 0))
+        deleteButton.anchor(top: contentView.topAnchor, leading: nil, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 10))
+        bstLabel.anchor(top: deleteButton.bottomAnchor, leading: myImageView.trailingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 40))
+        titleLabel.anchor(top: bstLabel.bottomAnchor, leading: myImageView.trailingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 30))
+        priceLabel.anchor(top: nil, leading: myImageView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 20, right: 0))
     }
     
     public func configure(title: String, price: Int64, image: Data, bst: String){

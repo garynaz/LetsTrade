@@ -79,6 +79,15 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         return description
     }()
     
+    let locationButton : UIButton = {
+        let locationButton = UIButton()
+        locationButton.setTitleColor(UIColor.white, for: .normal)
+        locationButton.backgroundColor = .systemIndigo
+        locationButton.setTitle("Add Location...", for: .normal)
+        locationButton.addTarget(self, action: #selector(newLocation), for: .touchUpInside)
+        return locationButton
+    }()
+    
     let postButton : UIButton = {
         let postButton = UIButton()
         postButton.setTitleColor(UIColor.white, for: .normal)
@@ -88,6 +97,8 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         postButton.layer.cornerRadius = 10
         return postButton
     }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,11 +117,11 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         imageCollection = UICollectionView(frame: self.view.frame, collectionViewLayout: NewProductViewController.createLayout())
         imageCollection?.delegate = self
         imageCollection?.dataSource = self
-        imageCollection?.register(addImageCell.self, forCellWithReuseIdentifier: addImageCell.cellId)
+        imageCollection?.register(AddImageCell.self, forCellWithReuseIdentifier: AddImageCell.cellId)
         imageCollection?.backgroundColor = .systemGray5
         imageCollection?.isScrollEnabled = true
         
-        [titleField, priceField, additionalInfo, imageCollection!, postButton].forEach{view.addSubview($0)}
+        [titleField, priceField, additionalInfo, imageCollection!, postButton, locationButton].forEach{view.addSubview($0)}
         
         configureStackView()
         
@@ -169,10 +180,12 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 50))
 
         additionalInfo.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 150))
+        
+        locationButton.anchor(top: additionalInfo.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 50))
 
-        imageCollection!.anchor(top: additionalInfo.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 200))
+        imageCollection!.anchor(top: locationButton.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: postButton.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 30, left: 0, bottom: 30, right: 0))
 
-        postButton.anchor(top: imageCollection?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 50, left: 0, bottom: 0, right: 0) ,size: .init(width: 300 , height: 70))
+        postButton.anchor(top: nil, leading: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 20, right: 0), size: .init(width: 300, height: 70))
         postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
@@ -191,6 +204,16 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     @objc func cancel(){
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @objc func newLocation(){
+        //Add location services here...
+        let locationVC = firstVC()
+        let locationNavController = UINavigationController(rootViewController: locationVC)
+        locationNavController.modalPresentationStyle = .fullScreen
+        locationNavController.modalTransitionStyle = .flipHorizontal
+        self.present(locationNavController, animated: true, completion: nil)
+    }
+    
     
     @objc func newPost(){
         
@@ -213,7 +236,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
             return
         }
         
-        imgArray.removeAll{$0 == UIImage(systemName: "camera", withConfiguration: imgConfig)!}
+//        imgArray.removeAll{$0 == UIImage(systemName: "camera", withConfiguration: imgConfig)!}
         let newProduct = Product(context: context)
         newProduct.title = title
         newProduct.price = Int64(price)!
@@ -254,7 +277,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  imageCollection!.dequeueReusableCell(withReuseIdentifier: addImageCell.cellId, for: indexPath) as! addImageCell
+        let cell =  imageCollection!.dequeueReusableCell(withReuseIdentifier: AddImageCell.cellId, for: indexPath) as! AddImageCell
         cell.configure(image: imgArray[indexPath.item].pngData()!)
         return cell
     }
