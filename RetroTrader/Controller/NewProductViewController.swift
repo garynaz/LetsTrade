@@ -254,7 +254,6 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
             print("Error saving new Product: \(error)")
         }
         self.dismiss(animated: true, completion: nil)
-        //Changes
     }
     
     
