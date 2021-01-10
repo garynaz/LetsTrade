@@ -13,7 +13,7 @@ protocol AddLocationDelegate : AnyObject {
     func didAddLocation(longitude: Double, latitude: Double, name: String)
 }
 
-class firstVC : UIViewController {
+class selectLocationVC : UIViewController {
     
     public weak var locationDelegate : AddLocationDelegate? = nil
     let locationManager = CLLocationManager()
@@ -70,7 +70,7 @@ class firstVC : UIViewController {
     
 }
 
-extension firstVC : CLLocationManagerDelegate {
+extension selectLocationVC : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse:
@@ -107,7 +107,7 @@ extension firstVC : CLLocationManagerDelegate {
     
 }
 
-extension firstVC: HandleMapSearch {
+extension selectLocationVC: HandleMapSearch {
     
 
     func dropPinZoomIn(placemark:MKPlacemark){

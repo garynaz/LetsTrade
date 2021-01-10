@@ -20,7 +20,7 @@
 		DD9CA2142564B4AA009A8557 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA2132564B4AA009A8557 /* ProductCell.swift */; };
 		DD9CA21B256983DA009A8557 /* NewProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9CA21A256983DA009A8557 /* NewProductViewController.swift */; };
 		DDAAA1E3258EBB2D00EE84BE /* RetroTraderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAAA1E2258EBB2D00EE84BE /* RetroTraderTests.swift */; };
-		DDCBB34525A416A400B65391 /* firstVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCBB34425A416A400B65391 /* firstVC.swift */; };
+		DDCBB34525A416A400B65391 /* selectLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCBB34425A416A400B65391 /* selectLocationVC.swift */; };
 		DDCBB34925A41A6B00B65391 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCBB34825A41A6B00B65391 /* LocationSearchTable.swift */; };
 		DDCBB34F25AABCB500B65391 /* showLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCBB34E25AABCB500B65391 /* showLocationVC.swift */; };
 /* End PBXBuildFile section */
@@ -53,7 +53,7 @@
 		DDAAA1E0258EBB2D00EE84BE /* RetroTraderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetroTraderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDAAA1E2258EBB2D00EE84BE /* RetroTraderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroTraderTests.swift; sourceTree = "<group>"; };
 		DDAAA1E4258EBB2D00EE84BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DDCBB34425A416A400B65391 /* firstVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstVC.swift; sourceTree = "<group>"; };
+		DDCBB34425A416A400B65391 /* selectLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectLocationVC.swift; sourceTree = "<group>"; };
 		DDCBB34825A41A6B00B65391 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		DDCBB34E25AABCB500B65391 /* showLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showLocationVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +83,7 @@
 				DD9CA21A256983DA009A8557 /* NewProductViewController.swift */,
 				DD042A3A2577197200E29D05 /* ProductInfoViewController.swift */,
 				DDCBB34E25AABCB500B65391 /* showLocationVC.swift */,
-				DDCBB34425A416A400B65391 /* firstVC.swift */,
+				DDCBB34425A416A400B65391 /* selectLocationVC.swift */,
 				DDCBB34825A41A6B00B65391 /* LocationSearchTable.swift */,
 			);
 			path = Controller;
@@ -256,7 +256,7 @@
 				DD9CA2142564B4AA009A8557 /* ProductCell.swift in Sources */,
 				DD402F36258144D400B2227D /* AddImageCell.swift in Sources */,
 				DD9CA21B256983DA009A8557 /* NewProductViewController.swift in Sources */,
-				DDCBB34525A416A400B65391 /* firstVC.swift in Sources */,
+				DDCBB34525A416A400B65391 /* selectLocationVC.swift in Sources */,
 				DD9CA1F025636C4A009A8557 /* LetsTrade.xcdatamodeld in Sources */,
 				DD9CA1E825636C4A009A8557 /* SceneDelegate.swift in Sources */,
 				DD064848257D62D000159A2D /* ImagePreviewCell.swift in Sources */,

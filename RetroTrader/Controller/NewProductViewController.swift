@@ -13,7 +13,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     var lat : Double?
     var long : Double?
     var locName : String?
-    let locationVC = firstVC()
+    let locationVC = selectLocationVC()
     var buttonStackView = UIStackView()
     var imageCollection : UICollectionView?
     var imgArray = [UIImage]()
