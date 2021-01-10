@@ -12,8 +12,8 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
     
     var selectedProduct : Product?
     var imageArray : [UIImage]?
-    
     var imageCollection : UICollectionView?
+    
     
     let locationLink : UIButton = {
         let location = UIButton()
@@ -21,6 +21,7 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
         location.setTitleColor(.systemBlue, for: .normal)
         location.setTitle(" Richmond Hill, ON L4J9K3", for: .normal)
         location.setImage(UIImage(systemName: "map"), for: .normal)
+        location.addTarget(self, action: #selector(showLocation), for: .touchUpInside)
         return location
     }()
     
@@ -65,6 +66,8 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
         productTitle.text = selectedProduct?.title
         productPrice.text = "$\(String(selectedProduct!.price))"
         productDescription.text = selectedProduct?.additionalInfo
+        
+        locationLink.setTitle(selectedProduct?.address, for: .normal)
         
         productTitle.setMargins(margin: 20)
         productPrice.setMargins(margin: 20)
@@ -128,6 +131,16 @@ class ProductInfoViewController : UIViewController, UICollectionViewDelegate, UI
         cell.configure(image: imageArray![indexPath.row].pngData()!)
         
         return cell
+    }
+    
+    @objc func showLocation() {
+        let locationVC = showLocationVC()
+        locationVC.lat = selectedProduct!.latitude
+        locationVC.long = selectedProduct!.longitude
+        let locationNavController = UINavigationController(rootViewController: locationVC)
+        locationNavController.modalPresentationStyle = .fullScreen
+        locationNavController.modalTransitionStyle = .flipHorizontal
+        self.present(locationNavController, animated: true, completion: nil)
     }
     
     

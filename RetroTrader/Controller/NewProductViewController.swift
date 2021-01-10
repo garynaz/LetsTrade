@@ -9,14 +9,16 @@ import Foundation
 import UIKit
 
 class NewProductViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-
+    
+    var lat : Double?
+    var long : Double?
+    var locName : String?
+    let locationVC = firstVC()
     var buttonStackView = UIStackView()
     var imageCollection : UICollectionView?
     var imgArray = [UIImage]()
     var imgConfig = UIImage.SymbolConfiguration(pointSize: 200, weight: .ultraLight, scale: .small)
-
     var selectedIndex : Int?
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     lazy var barButton =  UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
     
@@ -105,6 +107,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         priceField.delegate = self
         titleField.delegate = self
         additionalInfo.delegate = self
+        locationVC.locationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -207,7 +210,6 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     
     @objc func newLocation(){
         //Add location services here...
-        let locationVC = firstVC()
         let locationNavController = UINavigationController(rootViewController: locationVC)
         locationNavController.modalPresentationStyle = .fullScreen
         locationNavController.modalTransitionStyle = .flipHorizontal
@@ -243,6 +245,9 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         newProduct.photo = coreDataObjectFromImages(images: imgArray)
         newProduct.additionalInfo = itemDescription
         newProduct.buySellTrade = selectedButtonTitle
+        newProduct.latitude = lat!
+        newProduct.longitude = long!
+        newProduct.address = locName!
         do {
             try self.context.save()
         } catch {
@@ -392,3 +397,11 @@ extension NewProductViewController : UITextViewDelegate {
     
 }
 
+extension NewProductViewController : AddLocationDelegate {
+    
+    func didAddLocation(longitude: Double, latitude: Double, name: String) {
+        lat = latitude
+        long = longitude
+        locName = name
+    }
+}

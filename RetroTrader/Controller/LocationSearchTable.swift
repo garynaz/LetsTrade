@@ -9,18 +9,24 @@ import Foundation
 import UIKit
 import MapKit
 
+
+protocol HandleMapSearch : AnyObject {
+    func dropPinZoomIn(placemark:MKPlacemark)
+}
+
 class LocationSearchTable : UITableViewController {
     
     var matchingItems:[MKMapItem] = []
     var mapView: MKMapView? = nil
-    var handleMapSearchDelegate:HandleMapSearch? = nil
-
+    public weak var handleMapSearchDelegate:HandleMapSearch? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
+    deinit {
+        print("Release memory from SearchTableVC.")
+    }
 }
 
 extension LocationSearchTable : UISearchResultsUpdating {

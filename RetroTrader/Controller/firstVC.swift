@@ -8,13 +8,15 @@
 import Foundation
 import MapKit
 
-protocol HandleMapSearch {
-    func dropPinZoomIn(placemark:MKPlacemark)
+
+protocol AddLocationDelegate : AnyObject {
+    func didAddLocation(longitude: Double, latitude: Double, name: String)
 }
 
 class firstVC : UIViewController {
-    let locationManager = CLLocationManager()
     
+    public weak var locationDelegate : AddLocationDelegate? = nil
+    let locationManager = CLLocationManager()
     let mapView = MKMapView()
     var resultSearchController:UISearchController? = nil
     var selectedPin:MKPlacemark? = nil
@@ -34,6 +36,7 @@ class firstVC : UIViewController {
         mapView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor)
         
         let locationSearchTable = LocationSearchTable()
+        locationSearchTable.handleMapSearchDelegate = self
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
         
@@ -49,9 +52,10 @@ class firstVC : UIViewController {
         definesPresentationContext = true
         
         locationSearchTable.mapView = mapView
-        
-        locationSearchTable.handleMapSearchDelegate = self
-
+    }
+    
+    deinit {
+        print("Release memory from firstVC.")
     }
     
     @objc func cancel(){
@@ -59,6 +63,8 @@ class firstVC : UIViewController {
     }
     
     @objc func add(){
+        //Save placemark.name and placemark.coordinate to Core Data to later display in ProductInfoVC.
+        locationDelegate?.didAddLocation(longitude: selectedPin!.coordinate.longitude, latitude: selectedPin!.coordinate.latitude, name: " \(selectedPin!.name!), \(selectedPin!.administrativeArea ?? "ON") \(selectedPin!.postalCode ?? "L4J9K3")")
         self.dismiss(animated: true, completion: nil)
     }
     

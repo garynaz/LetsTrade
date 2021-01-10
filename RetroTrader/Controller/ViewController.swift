@@ -17,7 +17,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Product>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Product>
     private lazy var dataSource = makeDataSource()
-    
     var myCollectionView : UICollectionView?
     let searchController = UISearchController(searchResultsController: nil)
     lazy var barButton =  UIBarButtonItem(title: "Add Item", style: .plain, target: self, action: #selector(addItem))
