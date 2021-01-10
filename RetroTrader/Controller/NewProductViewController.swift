@@ -85,7 +85,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         let locationButton = UIButton()
         locationButton.setTitleColor(UIColor.white, for: .normal)
         locationButton.backgroundColor = .systemIndigo
-        locationButton.setTitle("Add Location...", for: .normal)
+        locationButton.setTitle("Add Location", for: .normal)
         locationButton.addTarget(self, action: #selector(newLocation), for: .touchUpInside)
         return locationButton
     }()
@@ -245,9 +245,9 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         newProduct.photo = coreDataObjectFromImages(images: imgArray)
         newProduct.additionalInfo = itemDescription
         newProduct.buySellTrade = selectedButtonTitle
-        newProduct.latitude = lat!
-        newProduct.longitude = long!
-        newProduct.address = locName!
+        newProduct.latitude = lat ?? 37.3318 //Add Default Values...
+        newProduct.longitude = long ?? -122.0312//Add Default Values...
+        newProduct.address = locName ?? "Apple Campus, CA 95014" //Add Default Values...
         do {
             try self.context.save()
         } catch {
