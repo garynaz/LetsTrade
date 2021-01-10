@@ -245,9 +245,9 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         newProduct.photo = coreDataObjectFromImages(images: imgArray)
         newProduct.additionalInfo = itemDescription
         newProduct.buySellTrade = selectedButtonTitle
-        newProduct.latitude = lat ?? 37.3318 //Add Default Values...
-        newProduct.longitude = long ?? -122.0312//Add Default Values...
-        newProduct.address = locName ?? "Apple Campus, CA 95014" //Add Default Values...
+        newProduct.latitude = lat ?? 37.3318
+        newProduct.longitude = long ?? -122.0312
+        newProduct.address = locName ?? "Apple Campus, CA 95014"
         do {
             try self.context.save()
         } catch {
