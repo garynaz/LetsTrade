@@ -112,7 +112,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             try context.save()
         } catch {
             print("Unable to delete Item:\(error)")
-            print("TEST")
         }
         fetchData()
      }
