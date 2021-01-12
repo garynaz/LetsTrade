@@ -121,6 +121,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         switch sender.selectedSegmentIndex {
         case 0:
             selectedButtonTitle = "Buying"
+            print("TESTING")
         case 1:
             selectedButtonTitle = "Selling"
         case 2:
