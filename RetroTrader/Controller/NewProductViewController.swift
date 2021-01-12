@@ -10,44 +10,19 @@ import UIKit
 
 class NewProductViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    var bstSelector = UISegmentedControl(items: ["BUY","SELL","TRADE"])
+    var selectedButtonTitle : String = "Buying"
+    
     var lat : Double?
     var long : Double?
     var locName : String?
     let locationVC = selectLocationVC()
-    var buttonStackView = UIStackView()
     var imageCollection : UICollectionView?
     var imgArray = [UIImage]()
     var imgConfig = UIImage.SymbolConfiguration(pointSize: 200, weight: .ultraLight, scale: .small)
     var selectedIndex : Int?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     lazy var barButton =  UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
-    
-    let sellButton : UIButton = {
-        let sellButton = UIButton()
-        sellButton.setTitle("Selling", for: .normal)
-        sellButton.backgroundColor = .systemIndigo
-        sellButton.setTitleColor(.white, for: .normal)
-        sellButton.addTarget(self, action: #selector(sellButtonPushed), for: .touchUpInside)
-        return sellButton
-    }()
-    
-    let tradeButton : UIButton = {
-        let tradeButton = UIButton()
-        tradeButton.setTitle("Trading", for: .normal)
-        tradeButton.backgroundColor = .systemGray5
-        tradeButton.setTitleColor(.systemIndigo, for: .normal)
-        tradeButton.addTarget(self, action: #selector(tradeButtonPushed), for: .touchUpInside)
-        return tradeButton
-    }()
-    
-    let buyButton : UIButton = {
-        let buyButton = UIButton()
-        buyButton.setTitle("Buying", for: .normal)
-        buyButton.backgroundColor = .systemGray5
-        buyButton.setTitleColor(.systemIndigo, for: .normal)
-        buyButton.addTarget(self, action: #selector(buyButtonPushed), for: .touchUpInside)
-        return buyButton
-    }()
     
     let titleField : UITextField = {
         let titleField = UITextField()
@@ -115,6 +90,13 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         view.backgroundColor = .systemGray5
         navigationItem.leftBarButtonItem = barButton
         
+        bstSelector.selectedSegmentIndex = 0
+        bstSelector.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
+        let unselectedColor = [NSAttributedString.Key.foregroundColor: UIColor.systemGray]
+        let selectedColor = [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+        bstSelector.setTitleTextAttributes(unselectedColor, for: .normal)
+        bstSelector.setTitleTextAttributes(selectedColor, for: .selected)
+        
         [UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!, UIImage(systemName: "camera", withConfiguration: imgConfig)!].forEach{imgArray.append($0)}
         
         imageCollection = UICollectionView(frame: self.view.frame, collectionViewLayout: NewProductViewController.createLayout())
@@ -124,9 +106,7 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         imageCollection?.backgroundColor = .systemGray5
         imageCollection?.isScrollEnabled = true
         
-        [titleField, priceField, additionalInfo, imageCollection!, postButton, locationButton].forEach{view.addSubview($0)}
-        
-        configureStackView()
+        [titleField, priceField, additionalInfo, imageCollection!, postButton, locationButton, bstSelector].forEach{view.addSubview($0)}
         
         layoutConfig()
         setPaddingView(strImgname: "exclamationmark.circle", txtField: titleField)
@@ -137,57 +117,32 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
         print("Release memory from New Product VC.")
     }
     
-    @objc func tradeButtonPushed(sender:UIButton){
-        sellButton.backgroundColor = .systemGray5
-        sellButton.setTitleColor(.systemIndigo, for: .normal)
-        buyButton.backgroundColor = .systemGray5
-        buyButton.setTitleColor(.systemIndigo, for: .normal)
-        sender.backgroundColor = .systemIndigo
-        sender.setTitleColor(.white, for: .normal)
-        sender.isSelected = !sender.isSelected
-    }
-    
-    @objc func sellButtonPushed(sender:UIButton){
-        buyButton.backgroundColor = .systemGray5
-        buyButton.setTitleColor(.systemIndigo, for: .normal)
-        tradeButton.backgroundColor = .systemGray5
-        tradeButton.setTitleColor(.systemIndigo, for: .normal)
-        sender.backgroundColor = .systemIndigo
-        sender.setTitleColor(.white, for: .normal)
-        sender.isSelected = !sender.isSelected
-    }
-    
-    @objc func buyButtonPushed(sender:UIButton){
-        sellButton.backgroundColor = .systemGray5
-        sellButton.setTitleColor(.systemIndigo, for: .normal)
-        tradeButton.backgroundColor = .systemGray5
-        tradeButton.setTitleColor(.systemIndigo, for: .normal)
-        sender.backgroundColor = .systemIndigo
-        sender.setTitleColor(.white, for: .normal)
-        sender.isSelected = !sender.isSelected
-    }
-    
-    func configureStackView(){
-        buttonStackView = UIStackView(arrangedSubviews: [sellButton, tradeButton, buyButton])
-        buttonStackView.axis = .horizontal
-        buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 0
-        view.addSubview(buttonStackView)
+   @objc func changeColor(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            selectedButtonTitle = "Buying"
+        case 1:
+            selectedButtonTitle = "Selling"
+        case 2:
+            selectedButtonTitle = "Trading"
+        default:
+            selectedButtonTitle = "Buying"
+        }
     }
     
     func layoutConfig(){
-        buttonStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 50))
+        bstSelector.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 50))
         
-        titleField.anchor(top: buttonStackView.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 50))
-
+        titleField.anchor(top: bstSelector.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, size: .init(width: 0, height: 50))
+        
         priceField.anchor(top: titleField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 50))
-
+        
         additionalInfo.anchor(top: priceField.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 150))
         
         locationButton.anchor(top: additionalInfo.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 50))
-
+        
         imageCollection!.anchor(top: locationButton.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: postButton.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 30, left: 0, bottom: 30, right: 0))
-
+        
         postButton.anchor(top: nil, leading: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 20, right: 0), size: .init(width: 300, height: 70))
         postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
@@ -219,14 +174,6 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
     
     @objc func newPost(){
         
-        var selectedButtonTitle : String?
-        
-        for i in [buyButton, sellButton, tradeButton]{
-            if i.currentTitleColor == UIColor.white {
-                selectedButtonTitle = i.title(for: .normal)!
-            }
-        }
-        
         guard
             let title = titleField.text, !title.isEmpty,
             let price = priceField.text, !price.isEmpty,
@@ -238,7 +185,6 @@ class NewProductViewController: UIViewController, UICollectionViewDelegate, UICo
             return
         }
         
-//        imgArray.removeAll{$0 == UIImage(systemName: "camera", withConfiguration: imgConfig)!}
         let newProduct = Product(context: context)
         newProduct.title = title
         newProduct.price = Int64(price)!
@@ -386,8 +332,8 @@ extension NewProductViewController : UITextViewDelegate {
         if (text == "\n") //Allows for Return key to function as a line break.
         {
             textView.text = textView.text + "\n"
-         }
-
+        }
+        
         if allowedCharSet.isSuperset(of: typedCharsSet) && newLength <= 250 {
             return true
         }
