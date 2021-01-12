@@ -36,8 +36,8 @@ buy, sell, and trade their retro and vintage video game products in an open mark
 * Add up to 6 images to each ad, and present the ad in a UICollectionView.
 
 ## To-do list
-* Add locations to ad's in order to allow users to search by location.
-* Add Category heading, and Search By Category (Video Games, Consoles, Other) functionality for the end user.
+* Add Category heading, and Search By Category function (Video Games, Consoles, Other).
+* Add user profiles.
 
 
 ## Inspiration
