@@ -18,7 +18,7 @@ The purpose of this project is to build an application for video game enthusiast
 buy, sell, and trade their retro and vintage video game products in an open market.
 
 ## Screenshots
-<img src="images/launchScreen_iphone12prosilver_portrait.png" width=220> <img src="images/mainVC.png" width=220> <img src="images/NewProductVC.png" width=220> <img src="images/emptyNewProductVC.png" width=220> <img src="images/ProductPreviewVC.png" width=220> <img src="images/searchTableVC.png" width=220> <img src="images/addLocationVC.png" width=220>
+<img src="images/launchScreen_iphone12prosilver_portrait.png" width=220> <img src="images/mainVC.png" width=220> <img src="images/NewProductVC.png" width=220> <img src="images/ProductPreviewVC.png" width=220> <img src="images/searchTableVC.png" width=220> <img src="images/addLocationVC.png" width=220>
 
 ## Technologies
 * Swift 5
